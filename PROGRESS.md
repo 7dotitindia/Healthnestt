@@ -204,6 +204,14 @@ Security detail: password hashing, signed httpOnly session, server-side role che
 - Not done: email verification, password reset, changing email or password, reading history. The new pages were compiled and unit-tested but not yet looked at in a browser.
 - Gap list against healthline.com: `FEATURE_GAPS.md`.
 
+## Done: three more calculators and a News category (2026-10-12)
+
+- Macronutrient (calories from goal, then grams of carbs, protein and fat for three splits; calorie floor of 1,200 women / 1,500 men), Sleep (bedtime from wake-up time or the reverse, in 90-minute cycles), A1C (A1C to average glucose and back, mg/dL or mmol/L, with the cut-off band and a not-a-diagnosis note that mentions anaemia and haemoglobin variants).
+- All calculator maths now lives in `src/lib/calculators.js` and is unit-tested (42 tests); the BMI, calorie and water results are unchanged.
+- News: a "Health News" category (`/news`), linked first in the header. No sample news was invented, so it is empty until a writer publishes sourced items.
+- Live database updated by re-running the seed (safe to repeat; it does not change existing accounts or articles).
+- 542 tests passing.
+
 ## Suggested next steps
 1. Email (newsletter confirmation, submit/approve notifications). Needs an email provider account from you.
 3. (done) Automated tests.

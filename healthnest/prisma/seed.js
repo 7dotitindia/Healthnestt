@@ -22,6 +22,7 @@ const categories = [
   ["Sleep", "sleep", "Sleep habits, insomnia and getting better rest."],
   ["Child Health", "child-health", "Newborn care, common childhood illnesses, vaccines and nutrition."],
   ["Home Remedies and Ayurveda", "home-remedies-and-ayurveda", "A careful look at what the evidence says about common home remedies."],
+  ["Health News", "news", "What new studies, guidelines and health announcements mean for you, with the original source linked."],
 ];
 
 const conditions = [
@@ -36,6 +37,9 @@ const calculators = [
   ["BMI Calculator", "bmi", "bmi", "Work out your body mass index from height and weight."],
   ["Daily Calorie Calculator", "calorie", "calorie", "Estimate how many calories you use each day."],
   ["Water Intake Calculator", "water", "water", "Get a rough daily water target based on body weight and activity."],
+  ["Macronutrient Calculator", "macronutrient-calculator", "macro", "Turn a daily calorie target into grams of carbohydrate, protein and fat."],
+  ["Sleep Calculator", "sleep-calculator", "sleep", "Find a bedtime or wake-up time that fits whole 90-minute sleep cycles."],
+  ["A1C Calculator", "a1c-calculator", "a1c", "Convert between A1C and average blood glucose."],
 ];
 
 const pages = [

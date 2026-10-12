@@ -30,6 +30,21 @@ const ABOUT = {
     limit: "Needs rise with heat and illness. Some heart, kidney and other conditions need different limits, so follow your doctor's advice.",
     topics: ["nutrition", "fitness"],
   },
+  macro: {
+    how: "Your daily calories come from the Mifflin-St Jeor equation times your activity level, then 500 fewer to lose weight gradually or 300 more to gain. The total is split into carbohydrate, protein and fat using the share you choose.",
+    limit: "These are starting points. Needs differ with age, pregnancy, kidney disease, diabetes and other conditions. The calorie target is never set below 1,200 (women) or 1,500 (men). A doctor or registered dietitian can tailor this.",
+    topics: ["nutrition", "fitness", "diabetes"],
+  },
+  sleep: {
+    how: "Sleep moves through cycles of about 90 minutes. This counts back (or forward) in whole cycles from your wake-up or bed time and allows 15 minutes to fall asleep, so you can aim to wake at the end of a cycle.",
+    limit: "Cycle length varies from person to person and night to night. Most adults need at least 7 hours. If you often feel unrested, or snore loudly or stop breathing in your sleep, speak to a doctor.",
+    topics: ["sleep", "mental-health"],
+  },
+  a1c: {
+    how: "A1C shows your average blood sugar over about three months. This converts between A1C and average glucose using the formula from the ADAG study: average glucose (mg/dL) = 28.7 x A1C - 46.7.",
+    limit: "It is a conversion, not a diagnosis. Anaemia, iron deficiency and inherited haemoglobin differences, which are common in India, can make A1C read too high or too low. Your doctor interprets your result.",
+    topics: ["diabetes", "nutrition"],
+  },
 };
 
 export async function generateMetadata({ params }) {

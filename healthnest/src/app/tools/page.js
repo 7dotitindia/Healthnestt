@@ -9,7 +9,7 @@ import { DISCLAIMER } from "@/lib/constants";
 export const dynamic = "force-dynamic";
 export const metadata = {
   title: "Health tools",
-  description: "Free BMI, calorie and water intake calculators.",
+  description: "Free BMI, calorie, macronutrient, sleep, water intake and A1C calculators.",
   alternates: { canonical: "/tools" },
 };
 

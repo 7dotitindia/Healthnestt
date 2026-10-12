@@ -13,11 +13,14 @@ import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription, SheetC
 export default async function SiteHeader() {
   const [categories, user] = await Promise.all([getCategories(), getCurrentUser()]);
   const dashboard = user?.role === "admin" ? { href: "/admin", label: "Admin dashboard" } : user?.role === "freelancer" ? { href: "/freelancer", label: "Writer dashboard" } : null;
+  // News goes first among the topic links so it is always one click away; the rest follow in the admin's order.
+  const news = categories.find((c) => c.slug === "news");
+  const navTopics = [news, ...categories.filter((c) => c !== news)].filter(Boolean).slice(0, 2);
   const nav = [
     { href: "/", label: "Home" },
     { href: "/conditions", label: "Conditions" },
     { href: "/tools", label: "Tools" },
-    ...categories.slice(0, 2).map((c) => ({ href: `/${c.slug}`, label: c.name })),
+    ...navTopics.map((c) => ({ href: `/${c.slug}`, label: c.name })),
     { href: "/about", label: "About" },
   ];
 

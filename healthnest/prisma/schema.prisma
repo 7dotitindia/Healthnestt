@@ -177,7 +177,7 @@ model Calculator {
   name        String
   slug        String  @unique
   description String
-  type        String // bmi | calorie | water
+  type        String // bmi | calorie | water | macro | sleep | a1c
   isActive    Boolean @default(true)
 }
 

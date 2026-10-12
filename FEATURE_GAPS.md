@@ -16,7 +16,7 @@ Priority follows `HEALTHNESTT_PLAN.md` (P1 launch, P2 after launch, P3 later). "
 | Save articles / bookmarks | **Have (new)** | Save button on every article, list on `/account`. Reading history not built. |
 | Newsletters (they have many) | Partial | One list, double opt-in. No sending of newsletters yet, no topic choices. |
 | Search | Partial | Basic match. No suggestions, no "did you mean", no filters beyond topic. |
-| Calculators: Calorie, Macronutrient, Sleep, A1C Explorer | Partial | We have BMI, calorie, water. Missing: macronutrients, sleep, A1C (P2). |
+| Calculators: Calorie, Macronutrient, Sleep, A1C Explorer | Have | BMI, calorie, water, macronutrient, sleep and A1C are built. |
 | Pill Identifier | Missing (P3) | Needs a licensed drug-image database. |
 | Prescription medications / drug directory A-Z | Missing (P2) | Large, needs reviewed content per drug. |
 | Symptom pages | Missing (P2) | |
@@ -24,7 +24,7 @@ Priority follows `HEALTHNESTT_PLAN.md` (P1 launch, P2 after launch, P3 later). "
 | Product reviews, at-home testing | Missing (P3) | Needs affiliate disclosures and ad labelling first. |
 | Video library | Missing (P2) | Embeds only; hosting is YouTube or similar. |
 | Daily Dose Lessons / featured programs | Missing (P3) | Email-course style. Builds on newsletters. |
-| Health news section | Missing | A "News" category with dated items would cover it. |
+| Health news section | Partial | "Health News" category exists and is in the header. Needs real sourced news items from writers. |
 | FindCare (find a doctor) | Missing (P3) | Needs a doctor directory, large effort. |
 | Bezzy communities / forums | Missing (P3) | Needs moderation tooling first. |
 | Comments | Missing (P2) | Needs moderation in admin. |
@@ -53,6 +53,6 @@ Priority follows `HEALTHNESTT_PLAN.md` (P1 launch, P2 after launch, P3 later). "
 
 1. Close launch blockers: connect Blob storage, email provider, rotate the exposed secrets, replace sample content.
 2. Reader trust basics: password reset and email verification (needs email delivery first).
-3. Cheap, visible wins: macronutrient, sleep and A1C calculators; a News category; video embeds.
+3. Cheap, visible wins: video embeds, and filling the News category.
 4. Growth: search suggestions, newsletter sending with topic choices, comments with moderation.
 5. Big content builds, each its own project: drug directory, symptom pages, recipes.
