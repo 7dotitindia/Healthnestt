@@ -30,7 +30,7 @@ export default async function SiteHeader() {
             {SITE_NAME}
           </Link>
 
-          <nav aria-label="Main" className="nav-center hidden md:flex">
+          <nav aria-label="Main" className="nav-center hidden lg:flex">
             {nav.map((n) => <Link key={n.href} href={n.href} className="nav-link">{n.label}</Link>)}
           </nav>
 
@@ -43,6 +43,7 @@ export default async function SiteHeader() {
               <ProfileMenu name={user.name} dashboard={dashboard} />
             ) : (
               <>
+                <Link href="/login" className="nav-user-icon" aria-label="Log in or sign up"><User aria-hidden="true" /></Link>
                 <Link href="/login" className="nav-login">Log in</Link>
                 <Link href="/signup" className="nav-signup">Sign up</Link>
               </>
@@ -51,7 +52,7 @@ export default async function SiteHeader() {
 
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" size="sm" className="md:hidden border-primary text-primary">
+              <Button variant="outline" size="sm" className="lg:hidden border-primary text-primary">
                 <Menu aria-hidden="true" />
                 Menu
               </Button>

@@ -497,7 +497,7 @@ h1, h2, h3 { font-weight: 500; }
 .nav-pill { pointer-events: auto; display: flex; align-items: center; gap: 24px; min-height: 58px; padding: 6px 8px 6px 20px; background: var(--nav-bg); border-radius: 16px; box-shadow: 0 0 0 1px rgba(24, 24, 24, 0.05), 0 6px 20px rgba(24, 24, 24, 0.06); }
 .brand { display: inline-flex; align-items: center; gap: 8px; font: 800 19px var(--font-sans); color: var(--primary); text-decoration: none; }
 .nav-center { display: none; justify-content: center; gap: 28px; flex: 1; }
-@media (min-width: 768px) { .nav-center { display: flex; } .nav-cta { display: inline-flex; } }
+@media (min-width: 1024px) { .nav-center { display: flex; } .nav-cta { display: inline-flex; } }
 .nav-link { color: var(--foreground); text-decoration: none; font-weight: 600; font-size: 14px; padding: 6px 0; border-bottom: 2px solid transparent; transition: color 150ms var(--ease-out), border-color 150ms var(--ease-out); }
 @media (hover: hover) and (pointer: fine) { .nav-link:hover { color: var(--primary); border-color: var(--primary); } }
 .nav-link[aria-current="page"] { color: var(--primary); }
@@ -603,7 +603,7 @@ a.svc-card:active { transform: scale(0.99); }
 .subnav a[aria-current="page"] { border-bottom-color: var(--primary); }
 
 /* Desktop nav: declared last so it wins over the phone defaults above. */
-@media (min-width: 768px) { .nav-center { display: flex; } .nav-cta { display: inline-flex; } }
+@media (min-width: 1024px) { .nav-center { display: flex; } .nav-cta { display: inline-flex; } }
 
 /* Theme toggle sits with the Search button, pushed to the right of the nav pill. */
 .nav-actions { margin-left: auto; display: flex; align-items: center; gap: 6px; }
@@ -623,7 +623,7 @@ table.t td:last-child { white-space: nowrap; }
 .nav-signup { background: var(--primary); color: var(--primary-foreground, #fff); }
 .nav-login:active, .nav-signup:active { transform: scale(0.97); }
 @media (hover: hover) and (pointer: fine) { .nav-login:hover { color: var(--primary); } .nav-signup:hover { opacity: 0.9; } }
-@media (min-width: 768px) { .nav-login, .nav-signup { display: inline-flex; } }
+@media (min-width: 1024px) { .nav-login, .nav-signup { display: inline-flex; } }
 .profile-menu { position: relative; }
 .profile-btn { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; background: var(--primary); color: var(--primary-foreground, #fff); font-weight: 700; font-size: 15px; cursor: pointer; list-style: none; user-select: none; }
 .profile-btn::-webkit-details-marker { display: none; }
@@ -633,3 +633,9 @@ table.t td:last-child { white-space: nowrap; }
 .profile-pop a, .profile-pop button { display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 10px; border: 0; background: none; border-radius: 10px; color: var(--foreground); font: 600 14px var(--font-sans); text-align: left; text-decoration: none; cursor: pointer; }
 .profile-pop svg { width: 16px; height: 16px; color: var(--primary); }
 @media (hover: hover) and (pointer: fine) { .profile-pop a:hover, .profile-pop button:hover { background: var(--bg-soft); } }
+.nav-link { white-space: nowrap; }
+.nav-pill .brand { white-space: nowrap; flex-shrink: 0; }
+/* Below 1024px a single account icon sits beside the Menu button (the menu also lists Log in / Sign up). */
+.nav-user-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; border: 1.5px solid var(--primary); color: var(--primary); text-decoration: none; }
+.nav-user-icon svg { width: 18px; height: 18px; }
+@media (min-width: 1024px) { .nav-user-icon { display: none; } }
