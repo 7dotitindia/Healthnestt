@@ -16,6 +16,7 @@ export default async function sitemap() {
     { url: u("/"), changeFrequency: "daily", priority: 1 },
     { url: u("/conditions"), changeFrequency: "weekly" },
     { url: u("/tools"), changeFrequency: "monthly" },
+    { url: u("/videos"), changeFrequency: "weekly" },
     ...categories.map((c) => ({ url: u(`/${c.slug}`), changeFrequency: "daily", priority: 0.8 })),
     ...conditions.map((c) => ({ url: u(`/conditions/${c.slug}`), changeFrequency: "weekly", priority: 0.7 })),
     ...tools.map((t) => ({ url: u(`/tools/${t.slug}`), changeFrequency: "monthly", priority: 0.6 })),

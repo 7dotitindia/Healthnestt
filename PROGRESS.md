@@ -212,6 +212,16 @@ Security detail: password hashing, signed httpOnly session, server-side role che
 - Live database updated by re-running the seed (safe to repeat; it does not change existing accounts or articles).
 - 542 tests passing.
 
+## Done: video embeds (2026-10-12)
+
+- Writers and admins can paste a YouTube link in the article editor ("Video" field). Only the 11-character video id is stored; anything that is not a single YouTube video (other sites, look-alike hosts, playlists, channels, scripts, custom ports, embedded passwords) is refused with a message and nothing is saved.
+- Article page: click-to-play video under the cover image. Nothing is requested from YouTube until the reader presses play, then it plays from youtube-nocookie.com in a sandboxed frame. A line under the video says YouTube learns of the visit once it is played, and links to YouTube.
+- New `/videos` page lists published articles that have a video (12 per page), linked from the footer and phone menu and included in the sitemap. Article rows show a Video tag.
+- Videos live inside articles, so each one keeps its sources, author and review. Embeds written into the article body are still stripped by the sanitizer.
+- Database: new nullable `videoId` column on articles (added by `prisma db push` on deploy).
+- 596 tests passing (54 new for video).
+- Not done: Vimeo or uploaded video, several videos per article, video structured data for search engines, a thumbnail (skipped on purpose, it would contact YouTube on page load).
+
 ## Suggested next steps
 1. Email (newsletter confirmation, submit/approve notifications). Needs an email provider account from you.
 3. (done) Automated tests.

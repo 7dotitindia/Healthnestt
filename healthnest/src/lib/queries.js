@@ -4,7 +4,7 @@ import { STATUS } from "./constants";
 const published = { status: STATUS.PUBLISHED };
 
 const cardSelect = {
-  id: true, title: true, slug: true, excerpt: true, coverImageUrl: true, coverImageAlt: true,
+  id: true, title: true, slug: true, excerpt: true, coverImageUrl: true, coverImageAlt: true, videoId: true,
   readingTimeMin: true, publishedAt: true, lastReviewedAt: true,
   author: { select: { name: true, slug: true } },
   category: { select: { name: true, slug: true } },
@@ -135,3 +135,9 @@ export const getBookmarkedArticles = (userId) =>
 
 export const isArticleBookmarked = async (userId, articleId) =>
   !!(await db.bookmark.findUnique({ where: { userId_articleId: { userId, articleId } }, select: { id: true } }));
+
+// Published articles that have a video, newest first. Powers the /videos page.
+const withVideo = { ...published, videoId: { not: null } };
+export const getVideoArticles = (take = 24, skip = 0) =>
+  db.article.findMany({ where: withVideo, orderBy: { publishedAt: "desc" }, take, skip, select: cardSelect });
+export const countVideoArticles = () => db.article.count({ where: withVideo });

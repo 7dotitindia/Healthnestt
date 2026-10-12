@@ -640,3 +640,18 @@ table.t td:last-child { white-space: nowrap; }
 .nav-user-icon { display: none; place-items: center; width: 40px; height: 40px; border-radius: 999px; border: 1.5px solid var(--primary); color: var(--primary); text-decoration: none; }
 .nav-user-icon svg { width: 18px; height: 18px; }
 @media (min-width: 640px) and (max-width: 1139px) { .nav-user-icon { display: grid; } }
+
+/* Click-to-play video */
+.video { margin: 0; }
+.video-frame { position: relative; aspect-ratio: 16 / 9; width: 100%; border-radius: var(--r-md, 14px); overflow: hidden; background: #15143a; }
+.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-play { position: absolute; inset: 0; width: 100%; display: grid; place-content: center; justify-items: center; gap: 10px; border: 0; cursor: pointer; color: #fff; background: radial-gradient(circle at 30% 20%, #3b3891 0%, #15143a 70%); }
+.video-play-icon { display: grid; place-items: center; width: 68px; height: 68px; border-radius: 999px; background: rgba(255, 255, 255, 0.16); box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.5); transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out); }
+.video-play-icon svg { width: 26px; height: 26px; margin-left: 3px; }
+.video-play-label { font-weight: 700; font-size: 14px; }
+.video-play:active .video-play-icon { transform: scale(0.95); }
+.video-play:focus-visible { outline: 3px solid var(--primary); outline-offset: -3px; }
+@media (hover: hover) and (pointer: fine) { .video-play:hover .video-play-icon { background: rgba(255, 255, 255, 0.28); } }
+.video figcaption { margin-top: 8px; }
+.video-tag { display: inline-flex; align-items: center; gap: 4px; font-weight: 600; color: var(--primary); }
+.video-tag svg { width: 11px; height: 11px; }

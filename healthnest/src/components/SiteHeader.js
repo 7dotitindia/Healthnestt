@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Activity, Menu, Search, ArrowUpRight, LogIn, UserPlus, User } from "lucide-react";
+import { Activity, Menu, Search, ArrowUpRight, LogIn, UserPlus, User, Play } from "lucide-react";
 import { getCategories } from "@/lib/queries";
 import { getCurrentUser } from "@/lib/auth";
 import ProfileMenu from "@/components/ProfileMenu";
@@ -94,6 +94,9 @@ export default async function SiteHeader() {
                 })}
                 <SheetClose asChild>
                   <Link href="/tools" className="sheet-link"><ArrowUpRight aria-hidden="true" />Health tools</Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link href="/videos" className="sheet-link"><Play aria-hidden="true" />Videos</Link>
                 </SheetClose>
                 <SheetClose asChild>
                   <Link href="/about" className="sheet-link"><ArrowUpRight aria-hidden="true" />About</Link>

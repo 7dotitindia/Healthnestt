@@ -4,6 +4,7 @@ import ArticleRow from "@/components/ArticleRow";
 import NewsletterForm from "@/components/NewsletterForm";
 import ShareButtons from "@/components/ShareButtons";
 import BookmarkButton from "@/components/BookmarkButton";
+import VideoEmbed from "@/components/VideoEmbed";
 import ViewTracker from "@/components/ViewTracker";
 import ReadingProgress from "@/components/ReadingProgress";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -120,6 +121,8 @@ export default async function ArticlePage({ params }) {
               <img src={article.coverImageUrl} alt={article.coverImageAlt || ""} />
             </div>
           )}
+
+          {article.videoId && <div style={{ marginBottom: 24 }}><VideoEmbed videoId={article.videoId} title={article.title} /></div>}
 
           <div className="lg:hidden" style={{ marginBottom: 24 }}>{tocBlock}</div>
 

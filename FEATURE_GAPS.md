@@ -22,7 +22,7 @@ Priority follows `HEALTHNESTT_PLAN.md` (P1 launch, P2 after launch, P3 later). "
 | Symptom pages | Missing (P2) | |
 | Recipes hub (400+, diet filters) | Missing (P2) | Needs a recipe data model and content. |
 | Product reviews, at-home testing | Missing (P3) | Needs affiliate disclosures and ad labelling first. |
-| Video library | Missing (P2) | Embeds only; hosting is YouTube or similar. |
+| Video library | Have | YouTube click-to-play inside articles, plus a /videos page. One video per article; no uploads. |
 | Daily Dose Lessons / featured programs | Missing (P3) | Email-course style. Builds on newsletters. |
 | Health news section | Partial | "Health News" category exists and is in the header. Needs real sourced news items from writers. |
 | FindCare (find a doctor) | Missing (P3) | Needs a doctor directory, large effort. |
@@ -53,6 +53,6 @@ Priority follows `HEALTHNESTT_PLAN.md` (P1 launch, P2 after launch, P3 later). "
 
 1. Close launch blockers: connect Blob storage, email provider, rotate the exposed secrets, replace sample content.
 2. Reader trust basics: password reset and email verification (needs email delivery first).
-3. Cheap, visible wins: video embeds, and filling the News category.
+3. Cheap, visible wins: filling the News category and adding videos to articles.
 4. Growth: search suggestions, newsletter sending with topic choices, comments with moderation.
 5. Big content builds, each its own project: drug directory, symptom pages, recipes.

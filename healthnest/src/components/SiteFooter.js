@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SITE_NAME, SITE_TAGLINE, DISCLAIMER } from "@/lib/constants";
 import { getCategories } from "@/lib/queries";
 
-const about = [["/about", "About us"], ["/editorial-policy", "Editorial policy"], ["/advertising-policy", "Advertising policy"], ["/contact", "Contact"]];
+const about = [["/about", "About us"], ["/videos", "Videos"], ["/editorial-policy", "Editorial policy"], ["/advertising-policy", "Advertising policy"], ["/contact", "Contact"]];
 const legal = [["/privacy", "Privacy"], ["/terms", "Terms of use"], ["/disclaimer", "Medical disclaimer"], ["/staff/login", "Staff login"]];
 
 export default async function SiteFooter() {

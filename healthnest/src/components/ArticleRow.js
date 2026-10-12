@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Play } from "lucide-react";
 import { formatDate } from "@/lib/text";
 
 // One story in a list. Text first; a small image appears only if the article has one.
@@ -14,6 +15,7 @@ export default function ArticleRow({ article, compact = false, showExcerpt = tru
           {article.author?.name}
           {article.publishedAt ? <> &middot; {formatDate(article.publishedAt)}</> : null}
           {" "}&middot; {article.readingTimeMin} min read
+          {article.videoId && <> &middot; <span className="video-tag"><Play aria-hidden="true" fill="currentColor" />Video</span></>}
         </p>
       </div>
       {hasImg && (

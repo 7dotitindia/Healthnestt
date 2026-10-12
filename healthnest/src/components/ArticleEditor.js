@@ -3,6 +3,7 @@
 import { startTransition, useActionState, useRef, useState } from "react";
 import { saveArticle } from "@/app/actions/articles";
 import { LIMITS } from "@/lib/constants";
+import { youTubeShortUrl } from "@/lib/video";
 import { uploadImage } from "@/lib/uploadClient";
 import CoverUpload from "./CoverUpload";
 
@@ -162,6 +163,10 @@ export default function ArticleEditor({ article, categories, conditions, isAdmin
           </div>
           <div className="field"><label htmlFor="coverImageAlt">Cover image alt text</label>
             <input id="coverImageAlt" name="coverImageAlt" className="input" defaultValue={article?.coverImageAlt || ""} disabled={d} maxLength={LIMITS.coverAlt} />
+          </div>
+          <div className="field"><label htmlFor="videoUrl">Video (optional YouTube link)</label>
+            <input id="videoUrl" name="videoUrl" type="url" className="input" placeholder="https://youtu.be/..." defaultValue={article?.videoId ? youTubeShortUrl(article.videoId) : ""} disabled={d} maxLength={300} />
+            <span className="hint">Shown as a click-to-play video under the article summary. Only YouTube links work.</span>
           </div>
 
           {isAdmin && (

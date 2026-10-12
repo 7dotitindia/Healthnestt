@@ -4,7 +4,7 @@ import { slugify } from "./text";
 // A category slug lives at the site root (/diabetes), so it must never shadow a real route.
 export const RESERVED_SLUGS = new Set([
   "admin", "freelancer", "staff", "search", "tools", "conditions", "articles", "authors",
-  "api", "uploads", "sitemap.xml", "robots.txt", "favicon.ico", "login", "logout", "signup", "account", "_next",
+  "api", "uploads", "sitemap.xml", "robots.txt", "favicon.ico", "login", "logout", "signup", "account", "videos", "_next",
 ]);
 
 // Returns an error string, or null if the slug is usable for a category.

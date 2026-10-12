@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { cleanBody } from "@/lib/sanitize";
+import { parseYouTubeId } from "@/lib/video";
 import { slugify, readingTime, addMonths } from "@/lib/text";
 import { canEdit, canTransition, validateForSubmit, validateForPublish } from "@/lib/workflow";
 import { notifyAdminsSubmitted, notifyAuthor } from "@/lib/notify";
@@ -74,12 +75,18 @@ export async function saveArticle(_prev, formData) {
     if (!asset) return { errors: ["Upload the cover image again. The selected image was not found."] };
   }
 
+  // Only a plain YouTube id is stored; the embed address is rebuilt from it when the page is shown.
+  const videoUrl = text(formData, "videoUrl", 300);
+  const videoId = videoUrl ? parseYouTubeId(videoUrl) : null;
+  if (videoUrl && !videoId) return { errors: ["The video link must be a YouTube address, for example https://youtu.be/dQw4w9WgXcQ. Leave it empty for no video."] };
+
   const data = {
     title,
     excerpt: text(formData, "excerpt", LIMITS.excerpt.max),
     body,
     coverImageUrl,
     coverImageAlt: text(formData, "coverImageAlt", LIMITS.coverAlt) || null,
+    videoId,
     categoryId,
     conditionId,
     readingTimeMin: readingTime(body),

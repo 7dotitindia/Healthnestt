@@ -70,6 +70,7 @@ model Article {
   body            String    @default("") // sanitized HTML
   coverImageUrl   String?
   coverImageAlt   String?
+  videoId         String?   // YouTube video id (11 characters), shown as a click-to-play embed
   status          String    @default("draft") // draft | submitted | changes_requested | approved | published | archived
   seoTitle        String?
   seoDescription  String?
