@@ -85,7 +85,7 @@ Next.js 16 (App Router), Tailwind v4, Prisma 6 + SQLite (dev), signed-cookie ses
 5. Add env vars: `DATABASE_URL`, `SESSION_SECRET`, `SITE_URL`, and optionally `EMAIL_PROVIDER`, `EMAIL_FROM`, `RESEND_API_KEY`.
 6. After the first deploy, seed once from your machine: `DATABASE_URL=<neon url> npx prisma db seed` (then change the seeded accounts).
 
-Local development now also needs a Postgres `DATABASE_URL` (use a Neon dev branch or local Postgres); the tests need one too.
+Local development needs a Postgres `DATABASE_URL`. The tests need nothing: they build their own SQLite copy of the schema.
 
 ### Supabase connection strings
 

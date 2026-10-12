@@ -1,5 +1,5 @@
 // Healthnestt data model. See ../../CONTENT_MODEL_SPEC.md.
-// Dev uses SQLite. For production switch `provider` to "postgresql" and set DATABASE_URL.
+// Runs on Postgres (Supabase). The automated tests derive a throwaway SQLite copy of this file (tests/globalSetup.js).
 // Enum-like fields are plain strings, validated in src/lib/constants.js, so the schema stays portable.
 
 generator client {
@@ -30,6 +30,7 @@ model User {
   reviewed     Article[]     @relation("ArticleReviewer")
   reviewNotes  ReviewNote[]
   uploads      MediaAsset[]
+  bookmarks    Bookmark[]
 }
 
 model Category {
@@ -97,6 +98,7 @@ model Article {
   tags        ArticleTag[]
   sources     Source[]
   reviewNotes ReviewNote[]
+  bookmarks   Bookmark[]
 
   @@index([status, publishedAt])
   @@index([categoryId, status])
@@ -195,4 +197,17 @@ model EmailLog {
 
   @@index([to, createdAt])
   @@index([createdAt])
+}
+
+// A reader's saved article. Deleting the user or the article removes the bookmark.
+model Bookmark {
+  id        String   @id @default(cuid())
+  userId    String
+  articleId String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, articleId])
+  @@index([userId, createdAt])
 }

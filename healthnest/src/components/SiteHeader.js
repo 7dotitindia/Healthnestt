@@ -1,6 +1,8 @@
 import Link from "next/link";
-import { Activity, Menu, Search, ArrowUpRight } from "lucide-react";
+import { Activity, Menu, Search, ArrowUpRight, LogIn, UserPlus, User } from "lucide-react";
 import { getCategories } from "@/lib/queries";
+import { getCurrentUser } from "@/lib/auth";
+import ProfileMenu from "@/components/ProfileMenu";
 import { SITE_NAME } from "@/lib/constants";
 import { topicIcon } from "@/lib/topicIcons";
 import { Button } from "@/components/ui/button";
@@ -9,7 +11,8 @@ import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription, SheetC
 
 // Floating pill navigation, as in the reference design: logo on the left, links in the middle, outlined button on the right.
 export default async function SiteHeader() {
-  const categories = await getCategories();
+  const [categories, user] = await Promise.all([getCategories(), getCurrentUser()]);
+  const dashboard = user?.role === "admin" ? { href: "/admin", label: "Admin dashboard" } : user?.role === "freelancer" ? { href: "/freelancer", label: "Writer dashboard" } : null;
   const nav = [
     { href: "/", label: "Home" },
     { href: "/conditions", label: "Conditions" },
@@ -36,6 +39,14 @@ export default async function SiteHeader() {
             <Link href="/search" className="nav-cta">
               <Search className="mr-2 size-4" aria-hidden="true" />Search
             </Link>
+            {user ? (
+              <ProfileMenu name={user.name} dashboard={dashboard} />
+            ) : (
+              <>
+                <Link href="/login" className="nav-login">Log in</Link>
+                <Link href="/signup" className="nav-signup">Sign up</Link>
+              </>
+            )}
           </div>
 
           <Sheet>
@@ -49,6 +60,20 @@ export default async function SiteHeader() {
               <SheetTitle className="text-xl font-bold text-primary">{SITE_NAME}</SheetTitle>
               <SheetDescription className="sr-only">Site navigation</SheetDescription>
               <nav aria-label="Mobile" className="flex flex-col overflow-y-auto">
+                {user ? (
+                  <SheetClose asChild>
+                    <Link href="/account" className="sheet-link"><User aria-hidden="true" />My account</Link>
+                  </SheetClose>
+                ) : (
+                  <>
+                    <SheetClose asChild>
+                      <Link href="/login" className="sheet-link"><LogIn aria-hidden="true" />Log in</Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link href="/signup" className="sheet-link"><UserPlus aria-hidden="true" />Sign up</Link>
+                    </SheetClose>
+                  </>
+                )}
                 <SheetClose asChild>
                   <Link href="/search" className="sheet-link"><Search aria-hidden="true" />Search</Link>
                 </SheetClose>

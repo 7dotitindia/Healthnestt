@@ -3,13 +3,15 @@ import { notFound } from "next/navigation";
 import ArticleRow from "@/components/ArticleRow";
 import NewsletterForm from "@/components/NewsletterForm";
 import ShareButtons from "@/components/ShareButtons";
+import BookmarkButton from "@/components/BookmarkButton";
 import ViewTracker from "@/components/ViewTracker";
 import ReadingProgress from "@/components/ReadingProgress";
 import ScrollReveal from "@/components/ScrollReveal";
 import { BentoGrid, BentoTile } from "@/components/Bento";
 import { Calculator } from "lucide-react";
 import { topicIcon } from "@/lib/topicIcons";
-import { getArticleBySlug, getRelatedArticles } from "@/lib/queries";
+import { getArticleBySlug, getRelatedArticles, isArticleBookmarked } from "@/lib/queries";
+import { getCurrentUser } from "@/lib/auth";
 import { DISCLAIMER, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { formatDate } from "@/lib/text";
 
@@ -56,6 +58,8 @@ export default async function ArticlePage({ params }) {
   if (!article) notFound();
 
   const related = await getRelatedArticles(article);
+  const viewer = await getCurrentUser();
+  const saved = viewer ? await isArticleBookmarked(viewer.id, article.id) : false;
   const { html, toc } = withToc(article.body);
   const url = `${SITE_URL}/articles/${article.slug}`;
 
@@ -104,7 +108,10 @@ export default async function ArticlePage({ params }) {
             {article.lastReviewedAt && <> &middot; Updated {formatDate(article.lastReviewedAt)}</>}
             {" "}&middot; {article.readingTimeMin} min read
           </p>
-          <div style={{ marginBottom: 16 }}><ShareButtons url={url} title={article.title} /></div>
+          <div style={{ marginBottom: 16, display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
+            <ShareButtons url={url} title={article.title} />
+            <BookmarkButton articleId={article.id} initialSaved={saved} loginHref={`/login?next=${encodeURIComponent(`/articles/${article.slug}`)}`} />
+          </div>
           <p className="disclaimer" style={{ margin: "0 0 24px" }}>{DISCLAIMER}</p>
 
           {article.coverImageUrl && (

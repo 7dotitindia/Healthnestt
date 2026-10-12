@@ -193,6 +193,17 @@ Security detail: password hashing, signed httpOnly session, server-side role che
 - Not done: real delivery (needs your Resend account and a verified domain), the newsletter broadcast itself, and an unsubscribe link inside a broadcast.
 - Not checked: how the email looks in real mail apps (Gmail, Outlook); only the browser preview was viewed, and not by eye.
 
+## Done: reader accounts and saved articles (2026-10-12)
+
+- Public sign up (`/signup`), sign in (`/login`, also accepts staff, who go straight to their dashboard), and `/account` with a name editor, saved articles and sign out. Staff sign in at `/staff/login` still refuses readers.
+- Header: Log in and Sign up buttons for visitors, a round profile button with a menu (account, saved articles, dashboard for staff, sign out) once signed in. Both appear in the phone menu too.
+- Save button on every article; a signed-out visitor is sent to sign in and returned to the article. Only published articles can be saved; unpublished ones drop out of the list.
+- Rules: new accounts are always `reader`, password 8+ characters with a letter and a number, 5 sign-ups per hour per connection, sign-in lockout as for staff, return address must be a path on this site.
+- Database: new `Bookmark` table (applied by `prisma db push` on the next deploy).
+- Tests: 36 new, 500 passing. The test suite now builds its own SQLite copy of the Postgres schema (`tests/globalSetup.js`), so `npm test` works again with no database setup.
+- Not done: email verification, password reset, changing email or password, reading history. The new pages were compiled and unit-tested but not yet looked at in a browser.
+- Gap list against healthline.com: `FEATURE_GAPS.md`.
+
 ## Suggested next steps
 1. Email (newsletter confirmation, submit/approve notifications). Needs an email provider account from you.
 3. (done) Automated tests.

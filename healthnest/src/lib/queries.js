@@ -122,3 +122,16 @@ export async function searchArticles(q, take = 20, categorySlug = null) {
     select: cardSelect,
   });
 }
+
+// A reader's saved articles, newest first. Unpublished articles drop out of the list automatically.
+export const getBookmarkedArticles = (userId) =>
+  db.bookmark
+    .findMany({
+      where: { userId, article: { ...published } },
+      orderBy: { createdAt: "desc" },
+      select: { article: { select: cardSelect } },
+    })
+    .then((rows) => rows.map((r) => r.article));
+
+export const isArticleBookmarked = async (userId, articleId) =>
+  !!(await db.bookmark.findUnique({ where: { userId_articleId: { userId, articleId } }, select: { id: true } }));

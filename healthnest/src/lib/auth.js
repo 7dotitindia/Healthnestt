@@ -18,6 +18,13 @@ export const getCurrentUser = cache(async () => {
   return user;
 });
 
+// Any signed-in person (reader or staff). Logged-out visitors go to the public sign-in page.
+export async function requireUser(next = "/account") {
+  const user = await getCurrentUser();
+  if (!user) redirect(`/login?next=${encodeURIComponent(next)}`);
+  return user;
+}
+
 export async function requireStaff() {
   const user = await getCurrentUser();
   if (!user || (user.role !== ROLES.ADMIN && user.role !== ROLES.FREELANCER)) {

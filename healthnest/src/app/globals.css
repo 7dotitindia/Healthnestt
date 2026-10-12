@@ -616,3 +616,20 @@ a.svc-card:active { transform: scale(0.99); }
 table.t td, table.t th { overflow-wrap: break-word; }
 .badge { white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; vertical-align: bottom; }
 table.t td:last-child { white-space: nowrap; }
+
+/* Reader account: log in / sign up buttons and the profile menu in the nav pill */
+.nav-login, .nav-signup { display: none; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; font-weight: 700; font-size: 14px; text-decoration: none; white-space: nowrap; transition: background-color 150ms var(--ease-out), color 150ms var(--ease-out), transform 160ms var(--ease-out); }
+.nav-login { color: var(--foreground); }
+.nav-signup { background: var(--primary); color: var(--primary-foreground, #fff); }
+.nav-login:active, .nav-signup:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) { .nav-login:hover { color: var(--primary); } .nav-signup:hover { opacity: 0.9; } }
+@media (min-width: 768px) { .nav-login, .nav-signup { display: inline-flex; } }
+.profile-menu { position: relative; }
+.profile-btn { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; background: var(--primary); color: var(--primary-foreground, #fff); font-weight: 700; font-size: 15px; cursor: pointer; list-style: none; user-select: none; }
+.profile-btn::-webkit-details-marker { display: none; }
+.profile-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.profile-pop { position: absolute; right: 0; top: calc(100% + 8px); z-index: 60; min-width: 220px; padding: 8px; border-radius: 16px; background: var(--card); border: 1px solid var(--border); box-shadow: var(--sh-card); display: grid; gap: 2px; }
+.profile-name { margin: 0; padding: 8px 10px; font-weight: 700; font-size: 14px; border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }
+.profile-pop a, .profile-pop button { display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 10px; border: 0; background: none; border-radius: 10px; color: var(--foreground); font: 600 14px var(--font-sans); text-align: left; text-decoration: none; cursor: pointer; }
+.profile-pop svg { width: 16px; height: 16px; color: var(--primary); }
+@media (hover: hover) and (pointer: fine) { .profile-pop a:hover, .profile-pop button:hover { background: var(--bg-soft); } }

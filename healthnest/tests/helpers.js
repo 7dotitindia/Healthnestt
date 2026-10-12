@@ -12,6 +12,7 @@ function assertTestDb() {
 export async function resetDb() {
   assertTestDb();
   // Children before parents.
+  await db.bookmark.deleteMany();
   await db.reviewNote.deleteMany();
   await db.articleTag.deleteMany();
   await db.source.deleteMany();

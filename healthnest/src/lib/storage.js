@@ -30,7 +30,7 @@ export function sniffImage(buf) {
 
 // On Vercel the filesystem is read-only, so when BLOB_READ_WRITE_TOKEN is set files go to
 // Vercel Blob under uploads/<name>. Public URLs stay /uploads/<name> (served by the route).
-const useBlob = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+const blobEnabled = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 
 export const mimeFor = (name) => TYPES[name.split(".").pop()]?.mime;
 
@@ -38,7 +38,7 @@ export async function saveImage(buf) {
   const ext = sniffImage(buf);
   if (!ext) return null;
   const filename = `${randomBytes(16).toString("hex")}.${ext}`;
-  if (useBlob()) {
+  if (blobEnabled()) {
     await put(`uploads/${filename}`, buf, { access: "public", addRandomSuffix: false, contentType: TYPES[ext].mime });
     return { filename, url: `/uploads/${filename}`, mimeType: TYPES[ext].mime, sizeBytes: buf.length };
   }
@@ -49,7 +49,7 @@ export async function saveImage(buf) {
 
 export async function readImage(filename) {
   if (!NAME_RE.test(filename)) return null;
-  if (useBlob()) {
+  if (blobEnabled()) {
     try {
       const meta = await head(`uploads/${filename}`);
       const res = await fetch(meta.url);
@@ -67,7 +67,7 @@ export async function readImage(filename) {
 
 export async function removeImage(filename) {
   if (!NAME_RE.test(filename)) return;
-  if (useBlob()) {
+  if (blobEnabled()) {
     await del(`uploads/${filename}`).catch(() => {});
     return;
   }
