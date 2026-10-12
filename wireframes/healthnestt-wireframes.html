@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Healthnestt Wireframes</title>
+<style>
+:root{--bg:#f4f5f7;--ink:#1f2933;--mute:#7b8794;--line:#cbd2d9;--box:#e4e7eb;--accent:#2f8f83;--accent-soft:#d6efec;--warn:#f6e3b4}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.45 system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header.top{padding:16px 20px;background:#fff;border-bottom:1px solid var(--line)}
+header.top h1{margin:0;font-size:18px}
+header.top p{margin:2px 0 0;color:var(--mute);font-size:13px}
+nav.tabs{display:flex;gap:6px;flex-wrap:wrap;padding:12px 20px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav.tabs button{border:1px solid var(--line);background:#fff;padding:7px 12px;border-radius:6px;cursor:pointer;font:inherit}
+nav.tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+main{padding:20px;max-width:1100px;margin:0 auto}
+section.screen{display:none}
+section.screen.on{display:block}
+.note{background:var(--warn);border-radius:6px;padding:10px 12px;margin-bottom:14px;font-size:13px}
+.frame{background:#fff;border:2px solid var(--line);border-radius:8px;overflow:hidden}
+.bar{display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.logo{font-weight:700;color:var(--accent);font-size:17px}
+.bar .links{display:flex;gap:14px;color:var(--mute);flex:1;flex-wrap:wrap}
+.search{border:1px solid var(--line);border-radius:20px;padding:5px 12px;color:var(--mute);min-width:140px}
+.pad{padding:16px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:2fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g12{grid-template-columns:1fr 1fr}
+@media(max-width:760px){.g2,.g3,.g4,.g12{grid-template-columns:1fr}}
+.ph{background:var(--box);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--mute);font-size:12px;min-height:90px}
+.ph.tall{min-height:220px}.ph.hero{min-height:260px}
+.card{border:1px solid var(--line);border-radius:8px;padding:12px;background:#fff}
+.card h4{margin:8px 0 4px;font-size:14px}
+.tag{display:inline-block;background:var(--accent-soft);color:#1d6a60;border-radius:10px;padding:2px 8px;font-size:11px}
+.line{height:9px;background:var(--box);border-radius:4px;margin:6px 0}
+.line.s{width:60%}.line.m{width:80%}
+h3.sec{margin:20px 0 10px;font-size:15px;border-left:4px solid var(--accent);padding-left:8px}
+h3.sec:first-child{margin-top:0}
+.btn{display:inline-block;background:var(--accent);color:#fff;padding:7px 14px;border-radius:6px;font-size:13px}
+.btn.o{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+.btn.d{background:#fff;color:#a33;border:1px solid #a33}
+.field{margin-bottom:10px}
+.field label{display:block;font-size:12px;color:var(--mute);margin-bottom:3px}
+.field .in{border:1px solid var(--line);border-radius:6px;padding:7px 10px;color:var(--mute);background:#fafafa}
+.in.area{min-height:90px}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:13px}
+th{color:var(--mute);font-weight:600;background:#fafafa}
+.st{border-radius:10px;padding:2px 8px;font-size:11px;background:var(--box)}
+.st.sub{background:#cfe3fa}.st.chg{background:#fbd7d7}.st.ok{background:#d3f0d6}.st.pub{background:var(--accent-soft)}
+.side{display:grid;grid-template-columns:180px 1fr;min-height:420px}
+@media(max-width:760px){.side{grid-template-columns:1fr}}
+.side aside{border-right:1px solid var(--line);padding:14px;background:#fafafa}
+.side aside div{padding:7px 8px;border-radius:5px;color:var(--mute)}
+.side aside div.on{background:var(--accent-soft);color:#1d6a60;font-weight:600}
+.toc{border:1px dashed var(--line);border-radius:6px;padding:10px;margin:10px 0}
+.disc{background:var(--warn);border-radius:6px;padding:8px 10px;font-size:12px;margin:10px 0}
+.foot{padding:16px;background:#fafafa;border-top:1px solid var(--line);color:var(--mute);font-size:12px;display:flex;gap:16px;flex-wrap:wrap}
+.flow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.flow span.arrow{color:var(--mute)}
+.phone{width:300px;margin:0 auto}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Healthnestt: Phase 0 Wireframes</h1>
+  <p>Low-fidelity layouts for the launch (P1) screens. Grey blocks are placeholders for images or text. Not final visual design.</p>
+</header>
+<nav class="tabs" id="tabs"></nav>
+<main id="main">
+
+<!-- HOME -->
+<section class="screen" data-title="Home" id="home">
+  <div class="note"><b>Purpose:</b> help readers jump to a topic fast and surface trusted, fresh content. Most visitors enter through an article, so the home page is a hub, not the main entry point.</div>
+  <div class="frame">
+    <div class="bar"><span class="logo">Healthnestt</span><div class="links"><span>Conditions</span><span>Wellness</span><span>Nutrition</span><span>Tools</span><span>Recipes</span></div><span class="search">Search health topics</span></div>
+    <div class="pad">
+      <div class="grid g2">
+        <div><div class="ph hero">Featured article image</div><span class="tag">Heart Health</span><h4>Featured article title goes here</h4><div class="line m"></div><div class="line s"></div></div>
+        <div class="grid">
+          <div class="card"><span class="tag">Trending</span><div class="line"></div><div class="line m"></div></div>
+          <div class="card"><span class="tag">Trending</span><div class="line"></div><div class="line m"></div></div>
+          <div class="card"><span class="tag">Trending</span><div class="line"></div><div class="line m"></div></div>
+        </div>
+      </div>
+      <h3 class="sec">Browse by topic</h3>
+      <div class="grid g4">
+        <div class="ph">Diabetes</div><div class="ph">Heart Health</div><div class="ph">Mental Health</div><div class="ph">Women's Health</div>
+        <div class="ph">Nutrition</div><div class="ph">Fitness</div><div class="ph">Skin and Hair</div><div class="ph">Sleep</div>
+      </div>
+      <h3 class="sec">Latest articles</h3>
+      <div class="grid g3">
+        <div class="card"><div class="ph">Image</div><h4>Article title</h4><div class="line m"></div></div>
+        <div class="card"><div class="ph">Image</div><h4>Article title</h4><div class="line m"></div></div>
+        <div class="card"><div class="ph">Image</div><h4>Article title</h4><div class="line m"></div></div>
+      </div>
+      <h3 class="sec">Health tools</h3>
+      <div class="grid g3">
+        <div class="card">BMI calculator <span class="btn o">Open</span></div>
+        <div class="card">Calorie calculator <span class="btn o">Open</span></div>
+        <div class="card">Water intake <span class="btn o">Open</span></div>
+      </div>
+      <h3 class="sec">Newsletter</h3>
+      <div class="card" style="background:var(--accent-soft)"><b>Get weekly health tips</b><div class="field" style="margin-top:8px"><div class="in">Email address</div></div><span class="btn">Subscribe</span></div>
+    </div>
+    <div class="foot"><span>About</span><span>Editorial Policy</span><span>Advertising Policy</span><span>Privacy</span><span>Terms</span><span>Disclaimer</span><span>Contact</span></div>
+  </div>
+</section>
+
+<!-- CATEGORY -->
+<section class="screen" data-title="Category" id="category">
+  <div class="note"><b>Purpose:</b> list articles in one topic. A condition hub uses the same layout with a pinned overview at the top.</div>
+  <div class="frame">
+    <div class="bar"><span class="logo">Healthnestt</span><div class="links"><span>Conditions</span><span>Wellness</span><span>Nutrition</span><span>Tools</span></div><span class="search">Search</span></div>
+    <div class="pad">
+      <small style="color:var(--mute)">Home / Conditions / Diabetes</small>
+      <h2 style="margin:6px 0">Diabetes</h2>
+      <div class="line m"></div>
+      <div class="grid g2" style="margin-top:14px">
+        <div class="grid">
+          <div class="card grid" style="grid-template-columns:140px 1fr"><div class="ph">Image</div><div><span class="tag">Type 2</span><h4>Article title</h4><div class="line m"></div><div class="line s"></div></div></div>
+          <div class="card grid" style="grid-template-columns:140px 1fr"><div class="ph">Image</div><div><span class="tag">Diet</span><h4>Article title</h4><div class="line m"></div><div class="line s"></div></div></div>
+          <div class="card grid" style="grid-template-columns:140px 1fr"><div class="ph">Image</div><div><span class="tag">Symptoms</span><h4>Article title</h4><div class="line m"></div><div class="line s"></div></div></div>
+          <div style="text-align:center"><span class="btn o">Load more / pagination</span></div>
+        </div>
+        <div class="grid" style="align-content:start">
+          <div class="card"><b>Subtopics</b><div class="line"></div><div class="line"></div><div class="line"></div></div>
+          <div class="card"><b>Related tools</b><div class="line"></div><div class="line"></div></div>
+          <div class="card" style="background:var(--accent-soft)"><b>Newsletter</b><div class="in field" style="margin-top:6px;border:1px solid var(--line);padding:6px">Email</div><span class="btn">Join</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<section class="screen" data-title="Article" id="article">
+  <div class="note"><b>Purpose:</b> the most important page. Search traffic lands here. Trust elements (author, dates, sources, disclaimer) must be visible without scrolling far.</div>
+  <div class="frame">
+    <div class="bar"><span class="logo">Healthnestt</span><div class="links"><span>Conditions</span><span>Wellness</span><span>Tools</span></div><span class="search">Search</span></div>
+    <div class="pad">
+      <div class="grid g2">
+        <div>
+          <small style="color:var(--mute)">Home / Diabetes / Article</small>
+          <h2 style="margin:6px 0">Article title: a clear, plain-language headline</h2>
+          <div style="display:flex;gap:10px;align-items:center;color:var(--mute);font-size:12px;margin-bottom:10px"><div class="ph" style="min-height:32px;width:32px;border-radius:50%"></div>By Author Name | Published date | Last updated date | 6 min read</div>
+          <div class="disc">Disclaimer: this content is for information only and is not a substitute for professional medical advice.</div>
+          <div class="ph tall">Cover image</div>
+          <div class="toc"><b>In this article</b><div class="line m"></div><div class="line m"></div><div class="line m"></div></div>
+          <h4>Section heading</h4><div class="line"></div><div class="line"></div><div class="line m"></div>
+          <h4>Section heading</h4><div class="line"></div><div class="line m"></div>
+          <div class="card" style="background:var(--accent-soft)">Inline callout: "When to see a doctor"</div>
+          <h4>Sources</h4>
+          <div class="card"><div class="line m"></div><div class="line m"></div><div class="line s"></div></div>
+          <h4>Author bio</h4>
+          <div class="card grid" style="grid-template-columns:60px 1fr"><div class="ph" style="min-height:50px">Photo</div><div><div class="line m"></div><div class="line s"></div></div></div>
+          <h4>Related articles</h4>
+          <div class="grid g3"><div class="card"><div class="ph">Image</div><div class="line m"></div></div><div class="card"><div class="ph">Image</div><div class="line m"></div></div><div class="card"><div class="ph">Image</div><div class="line m"></div></div></div>
+        </div>
+        <div class="grid" style="align-content:start">
+          <div class="card"><b>Share</b><div class="flow"><span class="btn o">WhatsApp</span><span class="btn o">Copy link</span></div></div>
+          <div class="card"><b>Save</b><div class="flow"><span class="btn o">Bookmark (P2)</span></div></div>
+          <div class="card"><b>Related tool</b><div class="line m"></div><span class="btn">Open calculator</span></div>
+          <div class="card" style="background:var(--accent-soft)"><b>Newsletter</b><div class="line"></div><span class="btn">Subscribe</span></div>
+          <div class="ph tall">Ad slot (later)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<section class="screen" data-title="Search" id="search">
+  <div class="note"><b>Purpose:</b> fast, typo-tolerant search with suggestions while typing and filters on results.</div>
+  <div class="frame">
+    <div class="bar"><span class="logo">Healthnestt</span><div class="links"></div></div>
+    <div class="pad">
+      <div class="field"><div class="in" style="padding:12px;border-radius:24px">diabetis diet</div></div>
+      <div class="card" style="margin-bottom:12px"><small style="color:var(--mute)">Did you mean: diabetes diet?</small><div class="line m"></div><div class="line m"></div></div>
+      <div class="grid g2">
+        <div class="grid">
+          <div class="card"><span class="tag">Diabetes</span><h4>Result title</h4><div class="line m"></div></div>
+          <div class="card"><span class="tag">Nutrition</span><h4>Result title</h4><div class="line m"></div></div>
+          <div class="card"><span class="tag">Tools</span><h4>Result title</h4><div class="line m"></div></div>
+          <div class="card" style="background:#fafafa">Empty state: "No results. Try a different word or browse topics."</div>
+        </div>
+        <div class="card"><b>Filters</b><div class="line"></div><div class="line m"></div><div class="line"></div><small style="color:var(--mute)">Category, content type (article, tool), sort by (relevance, newest)</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="screen" data-title="Calculator" id="calc">
+  <div class="note"><b>Purpose:</b> useful tools (BMI, calorie, water intake) that earn links and repeat visits, then guide the reader to related articles.</div>
+  <div class="frame">
+    <div class="bar"><span class="logo">Healthnestt</span><div class="links"><span>Tools</span></div><span class="search">Search</span></div>
+    <div class="pad">
+      <h2 style="margin:0 0 8px">BMI Calculator</h2>
+      <div class="grid g2">
+        <div class="card">
+          <div class="field"><label>Height (cm)</label><div class="in">170</div></div>
+          <div class="field"><label>Weight (kg)</label><div class="in">65</div></div>
+          <span class="btn">Calculate</span>
+          <div class="card" style="margin-top:12px;background:var(--accent-soft)"><b>Your result:</b> 22.5 (Healthy range)<div class="line m"></div></div>
+          <div class="disc">Estimate only. Talk to a healthcare professional for personal advice.</div>
+        </div>
+        <div class="grid" style="align-content:start">
+          <div class="card"><b>How it works</b><div class="line m"></div><div class="line m"></div></div>
+          <div class="card"><b>Related articles</b><div class="line m"></div><div class="line m"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOBILE -->
+<section class="screen" data-title="Mobile (article)" id="mobile">
+  <div class="note"><b>Purpose:</b> most Indian traffic is mobile, so design mobile first. Menu collapses, sidebar content moves below the article, and share and tools stay one tap away.</div>
+  <div class="frame phone">
+    <div class="bar"><span>Menu</span><span class="logo" style="flex:1;text-align:center">Healthnestt</span><span>Search</span></div>
+    <div class="pad">
+      <small style="color:var(--mute)">Diabetes</small>
+      <h3 style="margin:4px 0">Article title in plain language</h3>
+      <div style="color:var(--mute);font-size:12px">By Author | Updated date | 6 min</div>
+      <div class="disc">Not a substitute for medical advice.</div>
+      <div class="ph">Cover image</div>
+      <div class="toc"><b>In this article</b> (collapsible)</div>
+      <div class="line"></div><div class="line"></div><div class="line m"></div>
+      <div class="card" style="background:var(--accent-soft)">When to see a doctor</div>
+      <b>Sources</b><div class="line m"></div>
+      <b>Related</b><div class="card"><div class="line m"></div></div><div class="card"><div class="line m"></div></div>
+      <div class="card" style="background:var(--accent-soft)"><b>Newsletter</b><span class="btn">Subscribe</span></div>
+    </div>
+    <div class="foot" style="justify-content:space-around"><span>Home</span><span>Topics</span><span>Tools</span><span>Search</span></div>
+  </div>
+</section>
+
+<!-- LOGIN -->
+<section class="screen" data-title="Staff login" id="login">
+  <div class="note"><b>Purpose:</b> one login for freelancers and admin, sent to the right dashboard by role. Accounts are created by admin only, so there is no public writer signup.</div>
+  <div class="frame" style="max-width:420px;margin:0 auto">
+    <div class="pad">
+      <div class="logo" style="text-align:center;margin-bottom:10px">Healthnestt Staff</div>
+      <div class="field"><label>Email</label><div class="in">name@example.com</div></div>
+      <div class="field"><label>Password</label><div class="in">********</div></div>
+      <span class="btn">Sign in</span>
+      <p style="color:var(--mute);font-size:12px">Forgot password? Ask admin for a reset link.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FREELANCER LIST -->
+<section class="screen" data-title="Freelancer: my articles" id="fl-list">
+  <div class="note"><b>Purpose:</b> see every article, its status, and any feedback from admin. Editing is allowed only for draft and changes-requested articles.</div>
+  <div class="frame side">
+    <aside><b class="logo">Healthnestt</b><div class="on">My articles</div><div>New article</div><div>Feedback</div><div>Assignments (P2)</div><div>Earnings (P2)</div><div>Profile</div></aside>
+    <div class="pad">
+      <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">My articles</h3><span class="btn">New article</span></div>
+      <table style="margin-top:10px">
+        <tr><th>Title</th><th>Category</th><th>Status</th><th>Updated</th><th></th></tr>
+        <tr><td>Managing type 2 diabetes with diet</td><td>Diabetes</td><td><span class="st chg">Changes requested</span></td><td>2 days ago</td><td>Edit</td></tr>
+        <tr><td>Sleep hygiene basics</td><td>Sleep</td><td><span class="st sub">Submitted</span></td><td>4 days ago</td><td>View</td></tr>
+        <tr><td>Heart-healthy Indian meals</td><td>Nutrition</td><td><span class="st">Draft</span></td><td>1 week ago</td><td>Edit</td></tr>
+        <tr><td>Understanding blood pressure</td><td>Heart Health</td><td><span class="st pub">Published</span></td><td>2 weeks ago</td><td>View</td></tr>
+      </table>
+      <div class="card" style="margin-top:12px;background:var(--warn)"><b>Feedback on "Managing type 2 diabetes with diet"</b><div class="line m"></div><div class="line s"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITOR -->
+<section class="screen" data-title="Freelancer: editor" id="editor">
+  <div class="note"><b>Purpose:</b> a distraction-free editor. Sources are mandatory: the Submit button stays disabled until at least one source is added. Autosave runs in the background.</div>
+  <div class="frame side">
+    <aside><b class="logo">Healthnestt</b><div>My articles</div><div class="on">New article</div><div>Feedback</div><div>Profile</div></aside>
+    <div class="pad">
+      <div style="display:flex;justify-content:space-between;align-items:center"><small style="color:var(--mute)">Draft, saved a moment ago</small><div class="flow"><span class="btn o">Save draft</span><span class="btn">Submit for review</span></div></div>
+      <div class="grid g2" style="margin-top:10px">
+        <div>
+          <div class="field"><label>Title</label><div class="in">Article title</div></div>
+          <div class="field"><label>Body (rich text: headings, lists, links, images)</label><div class="in area" style="min-height:220px">Toolbar: B I H2 H3 List Link Image Quote</div></div>
+          <div class="field"><label>Sources (required, at least 1)</label><div class="in area">Title, publisher, URL, date</div><span class="btn o">Add source</span></div>
+        </div>
+        <div>
+          <div class="field"><label>Category</label><div class="in">Select</div></div>
+          <div class="field"><label>Tags</label><div class="in">Add tags</div></div>
+          <div class="field"><label>Excerpt (max 160 chars)</label><div class="in area" style="min-height:60px"></div></div>
+          <div class="field"><label>Cover image + alt text</label><div class="ph">Upload</div></div>
+          <div class="card"><b>Checklist</b><div class="line m"></div><div class="line m"></div><small style="color:var(--mute)">No diagnosis or dosage claims, sources added, plain language</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN DASH -->
+<section class="screen" data-title="Admin: dashboard" id="ad-dash">
+  <div class="note"><b>Purpose:</b> start of the admin day: what is waiting, what is live, what needs a re-review.</div>
+  <div class="frame side">
+    <aside><b class="logo">Healthnestt</b><div class="on">Dashboard</div><div>Review queue</div><div>All articles</div><div>Users</div><div>Categories</div><div>Media</div><div>Newsletter</div><div>Analytics</div><div>Payments (P2)</div></aside>
+    <div class="pad">
+      <div class="grid g4">
+        <div class="card"><small>Awaiting review</small><h2 style="margin:4px 0">5</h2></div>
+        <div class="card"><small>Changes requested</small><h2 style="margin:4px 0">3</h2></div>
+        <div class="card"><small>Published</small><h2 style="margin:4px 0">42</h2></div>
+        <div class="card"><small>Overdue re-review</small><h2 style="margin:4px 0">2</h2></div>
+      </div>
+      <h3 class="sec">Needs your attention</h3>
+      <table>
+        <tr><th>Article</th><th>Author</th><th>Submitted</th><th></th></tr>
+        <tr><td>Sleep hygiene basics</td><td>Freelancer A</td><td>4 days ago</td><td><span class="btn o">Review</span></td></tr>
+        <tr><td>PCOS and diet</td><td>Freelancer B</td><td>1 day ago</td><td><span class="btn o">Review</span></td></tr>
+      </table>
+      <h3 class="sec">Top articles this week</h3>
+      <div class="ph">Views chart placeholder</div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN REVIEW -->
+<section class="screen" data-title="Admin: review article" id="ad-review">
+  <div class="note"><b>Purpose:</b> the key control point. Admin reads the article, checks sources against the checklist, then requests changes or approves and publishes. Only admin sees Publish.</div>
+  <div class="frame side">
+    <aside><b class="logo">Healthnestt</b><div>Dashboard</div><div class="on">Review queue</div><div>All articles</div><div>Users</div></aside>
+    <div class="pad">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><div><small style="color:var(--mute)">Review queue / Sleep hygiene basics</small><div><span class="st sub">Submitted</span> by Freelancer A</div></div><div class="flow"><span class="btn d">Request changes</span><span class="btn o">Approve</span><span class="btn">Publish</span></div></div>
+      <div class="grid g2" style="margin-top:12px">
+        <div><div class="card"><b>Article preview</b><div class="line"></div><div class="line m"></div><div class="line"></div><div class="line m"></div><div class="line s"></div></div>
+          <div class="card" style="margin-top:10px"><b>Sources</b><div class="line m"></div><div class="line m"></div></div></div>
+        <div class="grid" style="align-content:start">
+          <div class="card"><b>Publish checklist</b><div class="line m"></div><div class="line m"></div><div class="line m"></div><small style="color:var(--mute)">Accurate, sources valid, no diagnosis or dosage claims, disclaimer present, SEO fields set</small></div>
+          <div class="card"><b>SEO fields</b><div class="field"><div class="in">SEO title</div></div><div class="field"><div class="in">Meta description</div></div><div class="field"><div class="in">Slug</div></div></div>
+          <div class="card"><b>Note to freelancer</b><div class="in area" style="border:1px solid var(--line);border-radius:6px"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN USERS -->
+<section class="screen" data-title="Admin: users" id="ad-users">
+  <div class="note"><b>Purpose:</b> admin creates and deactivates freelancer accounts. No public writer signup.</div>
+  <div class="frame side">
+    <aside><b class="logo">Healthnestt</b><div>Dashboard</div><div>Review queue</div><div>All articles</div><div class="on">Users</div><div>Categories</div></aside>
+    <div class="pad">
+      <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Users</h3><span class="btn">Add freelancer</span></div>
+      <table style="margin-top:10px">
+        <tr><th>Name</th><th>Email</th><th>Role</th><th>Articles</th><th>Status</th><th></th></tr>
+        <tr><td>Freelancer A</td><td>a@example.com</td><td>Freelancer</td><td>12</td><td><span class="st ok">Active</span></td><td>Edit</td></tr>
+        <tr><td>Freelancer B</td><td>b@example.com</td><td>Freelancer</td><td>7</td><td><span class="st ok">Active</span></td><td>Edit</td></tr>
+        <tr><td>Freelancer C</td><td>c@example.com</td><td>Freelancer</td><td>0</td><td><span class="st">Deactivated</span></td><td>Edit</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section class="screen" data-title="Workflow" id="flow">
+  <div class="note"><b>Purpose:</b> how an article moves, and who is allowed to do each step.</div>
+  <div class="frame pad">
+    <h3 class="sec">Article status flow</h3>
+    <div class="flow">
+      <span class="st">Draft</span><span class="arrow">&rarr;</span>
+      <span class="st sub">Submitted</span><span class="arrow">&rarr;</span>
+      <span class="st chg">Changes requested</span><span class="arrow">&rarr; back to Submitted, or</span>
+      <span class="st ok">Approved</span><span class="arrow">&rarr;</span>
+      <span class="st pub">Published</span><span class="arrow">&rarr;</span>
+      <span class="st">Archived</span>
+    </div>
+    <table style="margin-top:14px">
+      <tr><th>Step</th><th>Who</th></tr>
+      <tr><td>Create and edit draft</td><td>Freelancer (own), Admin</td></tr>
+      <tr><td>Submit for review (sources required)</td><td>Freelancer, Admin</td></tr>
+      <tr><td>Request changes with a note</td><td>Admin only</td></tr>
+      <tr><td>Approve and Publish</td><td>Admin only</td></tr>
+      <tr><td>Edit after publishing, unpublish, archive</td><td>Admin only</td></tr>
+      <tr><td>Re-review reminder after 6-12 months</td><td>System notifies Admin</td></tr>
+    </table>
+  </div>
+</section>
+
+</main>
+<script>
+const screens=[...document.querySelectorAll('section.screen')];
+const tabs=document.getElementById('tabs');
+function show(id){
+  screens.forEach(s=>s.classList.toggle('on',s.id===id));
+  [...tabs.children].forEach(b=>b.classList.toggle('on',b.dataset.id===id));
+  try{history.replaceState(null,'','#'+id)}catch(e){}
+}
+screens.forEach(s=>{
+  const b=document.createElement('button');
+  b.textContent=s.dataset.title;b.dataset.id=s.id;
+  b.onclick=()=>show(s.id);tabs.appendChild(b);
+});
+show(screens.some(s=>'#'+s.id===location.hash)?location.hash.slice(1):screens[0].id);
+</script>
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Healthnestt Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  /* Brand */
+  --brand-50:#e8f5f2;--brand-100:#c9e8e2;--brand-200:#9dd4ca;--brand-300:#6dbbae;--brand-400:#3f9f90;
+  --brand-500:#1f7a6e;--brand-600:#196559;--brand-700:#14514a;--brand-800:#0f3d38;--brand-900:#0a2a26;
+  /* Warm accent (highlights, tips) */
+  --accent-100:#fdecc8;--accent-500:#e8a33d;--accent-700:#9a6412;
+  /* Neutrals (cool slate) */
+  --n-0:#ffffff;--n-50:#f7f9fa;--n-100:#eef2f4;--n-200:#dde4e8;--n-300:#c2cdd3;--n-400:#93a3ad;
+  --n-500:#667985;--n-600:#4a5b66;--n-700:#33424c;--n-800:#1f2b33;--n-900:#121a20;
+  /* Semantic */
+  --success-bg:#e3f4e6;--success-fg:#1b6b2f;
+  --warning-bg:#fdf1d6;--warning-fg:#8a5a00;
+  --danger-bg:#fde4e4;--danger-fg:#a12626;
+  --info-bg:#e1eefb;--info-fg:#1d5a99;
+
+  /* Roles (light) */
+  --bg:var(--n-0);--bg-soft:var(--n-50);--surface:var(--n-0);--surface-2:var(--n-100);
+  --text:var(--n-900);--text-2:var(--n-600);--text-3:var(--n-500);
+  --border:var(--n-200);--border-strong:var(--n-300);
+  --primary:var(--brand-500);--primary-hover:var(--brand-600);--on-primary:#fff;
+  --primary-soft:var(--brand-50);--primary-soft-fg:var(--brand-700);
+  --link:var(--brand-600);--focus:#1d6fd1;
+  --disclaimer-bg:var(--accent-100);--disclaimer-fg:#5c3d06;
+
+  /* Type */
+  --font-sans:'Inter',system-ui,-apple-system,'Segoe UI','Noto Sans','Noto Sans Devanagari',Arial,sans-serif;
+  --font-serif:'Source Serif 4',Georgia,'Noto Serif','Noto Serif Devanagari',serif;
+  /* Space (4px base) */
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
+  /* Radius + shadow */
+  --r-sm:6px;--r-md:10px;--r-lg:16px;--r-pill:999px;
+  --sh-1:0 1px 2px rgba(18,26,32,.08);--sh-2:0 4px 12px rgba(18,26,32,.10);--sh-3:0 12px 28px rgba(18,26,32,.14);
+}
+/* Dark theme: applied by OS preference unless user forces light, or when forced dark */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1514;--bg-soft:#121b1a;--surface:#16211f;--surface-2:#1d2b28;
+    --text:#e8efed;--text-2:#b4c3bf;--text-3:#8fa19c;
+    --border:#263634;--border-strong:#35504c;
+    --primary:#4fb5a5;--primary-hover:#6dc7b9;--on-primary:#06201c;
+    --primary-soft:#123430;--primary-soft-fg:#9fe0d4;--link:#7fd0c3;--focus:#7db4ff;
+    --success-bg:#143523;--success-fg:#8fe0a8;--warning-bg:#3a2d10;--warning-fg:#f1c872;
+    --danger-bg:#3d1b1b;--danger-fg:#ff9b9b;--info-bg:#15293f;--info-fg:#8cc2f5;
+    --disclaimer-bg:#3a2d10;--disclaimer-fg:#f1d9a2;
+    --sh-1:0 1px 2px rgba(0,0,0,.5);--sh-2:0 4px 12px rgba(0,0,0,.5);--sh-3:0 12px 28px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1514;--bg-soft:#121b1a;--surface:#16211f;--surface-2:#1d2b28;
+  --text:#e8efed;--text-2:#b4c3bf;--text-3:#8fa19c;
+  --border:#263634;--border-strong:#35504c;
+  --primary:#4fb5a5;--primary-hover:#6dc7b9;--on-primary:#06201c;
+  --primary-soft:#123430;--primary-soft-fg:#9fe0d4;--link:#7fd0c3;--focus:#7db4ff;
+  --success-bg:#143523;--success-fg:#8fe0a8;--warning-bg:#3a2d10;--warning-fg:#f1c872;
+  --danger-bg:#3d1b1b;--danger-fg:#ff9b9b;--info-bg:#15293f;--info-fg:#8cc2f5;
+  --disclaimer-bg:#3a2d10;--disclaimer-fg:#f1d9a2;
+  --sh-1:0 1px 2px rgba(0,0,0,.5);--sh-2:0 4px 12px rgba(0,0,0,.5);--sh-3:0 12px 28px rgba(0,0,0,.6);
+}
+
+/* ============ BASE ============ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 var(--font-sans)}
+a{color:var(--link)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 var(--s4)}
+.docbar{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--border)}
+.docbar .wrap{display:flex;align-items:center;gap:var(--s4);padding-top:var(--s3);padding-bottom:var(--s3);flex-wrap:wrap}
+.docbar strong{color:var(--primary);font-size:18px}
+.docbar nav{display:flex;gap:var(--s3);flex:1;flex-wrap:wrap;font-size:14px}
+.docbar nav a{text-decoration:none;color:var(--text-2)}
+.docbar nav a:hover{color:var(--primary)}
+h1.title{font:700 36px/1.2 var(--font-serif);margin:var(--s6) 0 var(--s2)}
+.lead{color:var(--text-2);max-width:62ch}
+section.ds{padding:var(--s6) 0;border-top:1px solid var(--border);margin-top:var(--s6)}
+section.ds>h2{font:700 24px/1.3 var(--font-serif);margin:0 0 var(--s2)}
+section.ds>p.d{color:var(--text-2);margin:0 0 var(--s5);max-width:70ch}
+h3.sub{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin:var(--s5) 0 var(--s3)}
+code{background:var(--surface-2);padding:1px 6px;border-radius:4px;font-size:.88em}
+.row{display:flex;gap:var(--s3);flex-wrap:wrap;align-items:center}
+.grid{display:grid;gap:var(--s4)}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:760px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* swatches */
+.sw{display:grid;grid-template-columns:repeat(9,1fr);border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border)}
+@media(max-width:760px){.sw{grid-template-columns:repeat(3,1fr)}}
+.sw div{padding:var(--s5) var(--s2) var(--s2);font-size:11px;line-height:1.3}
+.sw.n{grid-template-columns:repeat(10,1fr)}
+@media(max-width:760px){.sw.n{grid-template-columns:repeat(5,1fr)}}
+.chip{border:1px solid var(--border);border-radius:var(--r-md);padding:var(--s3);background:var(--surface)}
+.chip .dot{height:44px;border-radius:var(--r-sm);margin-bottom:var(--s2);border:1px solid var(--border)}
+.chip b{display:block;font-size:13px}.chip small{color:var(--text-3)}
+
+/* ============ COMPONENTS ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);min-height:44px;padding:0 var(--s5);border-radius:var(--r-sm);border:1px solid transparent;font:600 15px var(--font-sans);cursor:pointer;text-decoration:none;transition:background .15s}
+.btn-primary{background:var(--primary);color:var(--on-primary)}
+.btn-primary:hover{background:var(--primary-hover)}
+.btn-secondary{background:transparent;color:var(--primary);border-color:var(--primary)}
+.btn-secondary:hover{background:var(--primary-soft)}
+.btn-ghost{background:transparent;color:var(--text-2)}
+.btn-ghost:hover{background:var(--surface-2)}
+.btn-danger{background:transparent;color:var(--danger-fg);border-color:var(--danger-fg)}
+.btn-danger:hover{background:var(--danger-bg)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn-sm{min-height:36px;padding:0 var(--s3);font-size:13px}
+
+.field{display:grid;gap:6px;margin-bottom:var(--s4)}
+.field label{font-size:14px;font-weight:600}
+.field .hint{font-size:13px;color:var(--text-3)}
+.input,.select,.textarea{width:100%;min-height:44px;padding:10px 12px;background:var(--surface);color:var(--text);border:1px solid var(--border-strong);border-radius:var(--r-sm);font:16px var(--font-sans)}
+.textarea{min-height:96px;resize:vertical}
+.input.err{border-color:var(--danger-fg)}
+.field .errmsg{font-size:13px;color:var(--danger-fg)}
+
+.badge{display:inline-block;padding:2px 10px;border-radius:var(--r-pill);font-size:12px;font-weight:600;background:var(--surface-2);color:var(--text-2)}
+.badge.topic{background:var(--primary-soft);color:var(--primary-soft-fg)}
+.badge.info{background:var(--info-bg);color:var(--info-fg)}
+.badge.warn{background:var(--warning-bg);color:var(--warning-fg)}
+.badge.ok{background:var(--success-bg);color:var(--success-fg)}
+.badge.bad{background:var(--danger-bg);color:var(--danger-fg)}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;box-shadow:var(--sh-1)}
+.card .img{aspect-ratio:16/9;background:var(--surface-2);display:grid;place-items:center;color:var(--text-3);font-size:12px}
+.card .body{padding:var(--s4)}
+.card h4{font:600 18px/1.35 var(--font-serif);margin:var(--s2) 0 var(--s2)}
+.card p{margin:0;color:var(--text-2);font-size:14px}
+.meta{font-size:13px;color:var(--text-3);margin-top:var(--s2)}
+.card:hover{box-shadow:var(--sh-2)}
+
+.alert{border-radius:var(--r-sm);padding:var(--s3) var(--s4);font-size:14px;border-left:4px solid}
+.alert.info{background:var(--info-bg);color:var(--info-fg);border-color:var(--info-fg)}
+.alert.ok{background:var(--success-bg);color:var(--success-fg);border-color:var(--success-fg)}
+.alert.warn{background:var(--warning-bg);color:var(--warning-fg);border-color:var(--warning-fg)}
+.alert.bad{background:var(--danger-bg);color:var(--danger-fg);border-color:var(--danger-fg)}
+.disclaimer{background:var(--disclaimer-bg);color:var(--disclaimer-fg);border-radius:var(--r-sm);padding:var(--s3) var(--s4);font-size:13px}
+.callout{background:var(--primary-soft);color:var(--text);border-radius:var(--r-md);padding:var(--s4);border-left:4px solid var(--primary)}
+.callout b{color:var(--primary-soft-fg)}
+
+.nav{display:flex;align-items:center;gap:var(--s5);padding:var(--s3) var(--s4);border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);flex-wrap:wrap}
+.nav .logo{font:700 20px var(--font-serif);color:var(--primary)}
+.nav .links{display:flex;gap:var(--s4);flex:1;font-weight:500;font-size:15px;color:var(--text-2)}
+.search{display:flex;align-items:center;gap:var(--s2);border:1px solid var(--border-strong);border-radius:var(--r-pill);padding:0 var(--s4);min-height:40px;min-width:200px;color:var(--text-3);font-size:14px}
+
+.crumbs{font-size:13px;color:var(--text-3)}
+.toc{border:1px solid var(--border);border-radius:var(--r-md);padding:var(--s4);background:var(--bg-soft)}
+.toc b{display:block;margin-bottom:var(--s2)}
+.toc ol{margin:0;padding-left:var(--s5);color:var(--text-2);font-size:14px}
+.src{border-top:2px solid var(--border);padding-top:var(--s3)}
+.src ol{padding-left:var(--s5);font-size:14px;color:var(--text-2);margin:var(--s2) 0 0}
+.author{display:flex;gap:var(--s3);align-items:center}
+.avatar{width:44px;height:44px;border-radius:50%;background:var(--primary-soft);color:var(--primary-soft-fg);display:grid;place-items:center;font-weight:700}
+.tabs{display:flex;gap:var(--s2);border-bottom:1px solid var(--border)}
+.tabs span{padding:var(--s2) var(--s4);color:var(--text-2);font-weight:500}
+.tabs span.on{color:var(--primary);border-bottom:3px solid var(--primary);font-weight:600}
+table.t{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden}
+table.t th,table.t td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);font-size:14px}
+table.t th{background:var(--bg-soft);color:var(--text-2);font-weight:600}
+.prose{font:19px/1.75 var(--font-serif);max-width:68ch}
+.prose h2{font:700 28px/1.3 var(--font-serif);margin:var(--s6) 0 var(--s3)}
+.prose h3{font:600 22px/1.35 var(--font-serif);margin:var(--s5) 0 var(--s2)}
+.prose blockquote{margin:var(--s4) 0;padding:var(--s2) var(--s4);border-left:4px solid var(--primary);color:var(--text-2)}
+.spec{display:flex;align-items:center;gap:var(--s4);padding:var(--s2) 0;border-bottom:1px solid var(--border)}
+.spec .bar{background:var(--primary);height:12px;border-radius:3px}
+.spec .nm{width:60px;font-size:13px;color:var(--text-3)}
+.tgl{margin-left:auto}
+.stat{border:1px solid var(--border);border-radius:var(--r-md);padding:var(--s4);background:var(--surface)}
+.stat small{color:var(--text-3)}.stat .n{font:700 28px var(--font-sans)}
+</style>
+</head>
+<body>
+
+<div class="docbar"><div class="wrap">
+  <strong>Healthnestt</strong>
+  <nav>
+    <a href="#principles">Principles</a><a href="#color">Color</a><a href="#type">Type</a><a href="#space">Space</a>
+    <a href="#buttons">Buttons</a><a href="#forms">Forms</a><a href="#feedback">Feedback</a>
+    <a href="#content">Content</a><a href="#nav">Navigation</a><a href="#admin">Dashboard</a><a href="#a11y">Accessibility</a>
+  </nav>
+  <button class="btn btn-secondary btn-sm tgl" id="theme" type="button">Toggle dark mode</button>
+</div></div>
+
+<div class="wrap">
+<h1 class="title">Healthnestt Design System</h1>
+<p class="lead">The shared visual language for the public site, freelancer dashboard and admin dashboard. Tokens are CSS variables so Tailwind and any component code can map to them directly.</p>
+
+<section class="ds" id="principles">
+  <h2>1. Principles</h2>
+  <p class="d">Health readers are often worried and on a phone. The design should feel calm and credible, and never look like an ad.</p>
+  <div class="grid g4">
+    <div class="chip"><b>Calm</b><small>Lots of white space, one brand color, no visual noise.</small></div>
+    <div class="chip"><b>Credible</b><small>Author, dates, sources and disclaimer always visible on articles.</small></div>
+    <div class="chip"><b>Readable</b><small>Serif body at 19px+, high contrast, short line length.</small></div>
+    <div class="chip"><b>Mobile first</b><small>Design at 360px wide, then scale up. 44px touch targets.</small></div>
+  </div>
+</section>
+
+<section class="ds" id="color">
+  <h2>2. Color</h2>
+  <p class="d">Teal reads as health and trust without the clinical blue of most medical sites. A warm amber accent is reserved for tips and disclaimers. Neutrals have a slight cool tint.</p>
+  <h3 class="sub">Brand (primary)</h3>
+  <div class="sw">
+    <div style="background:var(--brand-50)">50<br>#e8f5f2</div><div style="background:var(--brand-100)">100<br>#c9e8e2</div><div style="background:var(--brand-200)">200<br>#9dd4ca</div>
+    <div style="background:var(--brand-300)">300<br>#6dbbae</div><div style="background:var(--brand-400);color:#fff">400<br>#3f9f90</div><div style="background:var(--brand-500);color:#fff"><b>500</b><br>#1f7a6e</div>
+    <div style="background:var(--brand-600);color:#fff">600<br>#196559</div><div style="background:var(--brand-700);color:#fff">700<br>#14514a</div><div style="background:var(--brand-900);color:#fff">900<br>#0a2a26</div>
+  </div>
+  <h3 class="sub">Neutrals</h3>
+  <div class="sw n">
+    <div style="background:var(--n-0)">0<br>#fff</div><div style="background:var(--n-50)">50</div><div style="background:var(--n-100)">100</div><div style="background:var(--n-200)">200</div><div style="background:var(--n-300)">300</div>
+    <div style="background:var(--n-500);color:#fff">500</div><div style="background:var(--n-600);color:#fff">600</div><div style="background:var(--n-700);color:#fff">700</div><div style="background:var(--n-800);color:#fff">800</div><div style="background:var(--n-900);color:#fff">900</div>
+  </div>
+  <h3 class="sub">Semantic and accent</h3>
+  <div class="grid g4">
+    <div class="chip"><div class="dot" style="background:var(--success-bg)"></div><b>Success</b><small>Published, approved, saved</small></div>
+    <div class="chip"><div class="dot" style="background:var(--warning-bg)"></div><b>Warning</b><small>Needs attention, overdue</small></div>
+    <div class="chip"><div class="dot" style="background:var(--danger-bg)"></div><b>Danger</b><small>Errors, changes requested, delete</small></div>
+    <div class="chip"><div class="dot" style="background:var(--info-bg)"></div><b>Info</b><small>Submitted, neutral notices</small></div>
+  </div>
+  <h3 class="sub">Roles (what to use where)</h3>
+  <table class="t">
+    <tr><th>Role token</th><th>Light</th><th>Dark</th><th>Use</th></tr>
+    <tr><td><code>--bg</code></td><td>#ffffff</td><td>#0e1514</td><td>Page background</td></tr>
+    <tr><td><code>--surface</code></td><td>#ffffff</td><td>#16211f</td><td>Cards, inputs, panels</td></tr>
+    <tr><td><code>--text</code> / <code>--text-2</code></td><td>#121a20 / #4a5b66</td><td>#e8efed / #b4c3bf</td><td>Body and secondary text</td></tr>
+    <tr><td><code>--primary</code></td><td>#1f7a6e</td><td>#4fb5a5</td><td>Buttons, links, active states</td></tr>
+    <tr><td><code>--border</code></td><td>#dde4e8</td><td>#263634</td><td>Dividers, card borders</td></tr>
+  </table>
+  <p class="d" style="margin-top:var(--s3)">Contrast: white on <code>--brand-500</code> is about 5.3:1 and body text on white is above 15:1, both passing WCAG AA. Never use <code>--brand-300</code> or lighter for text on white.</p>
+</section>
+
+<section class="ds" id="type">
+  <h2>3. Typography</h2>
+  <p class="d"><b>Source Serif 4</b> for headlines and article body (editorial, trustworthy). <b>Inter</b> for UI, navigation, forms and dashboards. Noto Sans/Serif Devanagari are in the fallback stack so Hindi works later without redesign.</p>
+  <div class="grid g2">
+    <div>
+      <div class="spec"><span class="nm">H1</span><span style="font:700 40px/1.2 var(--font-serif)">Health headline</span></div>
+      <div class="spec"><span class="nm">H2</span><span style="font:700 28px/1.3 var(--font-serif)">Section heading</span></div>
+      <div class="spec"><span class="nm">H3</span><span style="font:600 22px/1.35 var(--font-serif)">Subheading</span></div>
+      <div class="spec"><span class="nm">UI L</span><span style="font:600 16px var(--font-sans)">Button and label text</span></div>
+      <div class="spec"><span class="nm">UI S</span><span style="font:400 13px var(--font-sans);color:var(--text-3)">Meta and captions</span></div>
+    </div>
+    <table class="t">
+      <tr><th>Style</th><th>Mobile</th><th>Desktop</th></tr>
+      <tr><td>H1</td><td>30 / 1.2</td><td>40 / 1.2</td></tr>
+      <tr><td>H2</td><td>24 / 1.3</td><td>28 / 1.3</td></tr>
+      <tr><td>H3</td><td>20 / 1.35</td><td>22 / 1.35</td></tr>
+      <tr><td>Article body</td><td>18 / 1.7</td><td>19 / 1.75</td></tr>
+      <tr><td>UI body</td><td>16 / 1.6</td><td>16 / 1.6</td></tr>
+      <tr><td>Meta</td><td>13 / 1.4</td><td>13 / 1.4</td></tr>
+    </table>
+  </div>
+  <h3 class="sub">Article body sample</h3>
+  <div class="prose">
+    <h2>What causes high blood pressure?</h2>
+    <p>Blood pressure is the force of blood pushing against the walls of your arteries. Keep paragraphs short, use plain words, and explain any medical term the first time it appears.</p>
+    <h3>When to see a doctor</h3>
+    <blockquote>Quoted guidance from a source goes here, with the source named below it.</blockquote>
+  </div>
+</section>
+
+<section class="ds" id="space">
+  <h2>4. Space, radius, shadow</h2>
+  <p class="d">A 4px base scale. Use these values only, so the layout stays consistent.</p>
+  <div class="grid g2">
+    <div>
+      <div class="spec"><span class="nm">s1</span><div class="bar" style="width:4px"></div><small>4</small></div>
+      <div class="spec"><span class="nm">s2</span><div class="bar" style="width:8px"></div><small>8</small></div>
+      <div class="spec"><span class="nm">s3</span><div class="bar" style="width:12px"></div><small>12</small></div>
+      <div class="spec"><span class="nm">s4</span><div class="bar" style="width:16px"></div><small>16</small></div>
+      <div class="spec"><span class="nm">s5</span><div class="bar" style="width:24px"></div><small>24</small></div>
+      <div class="spec"><span class="nm">s6</span><div class="bar" style="width:32px"></div><small>32</small></div>
+      <div class="spec"><span class="nm">s7</span><div class="bar" style="width:48px"></div><small>48</small></div>
+      <div class="spec"><span class="nm">s8</span><div class="bar" style="width:64px"></div><small>64</small></div>
+    </div>
+    <div class="grid g3" style="align-content:start">
+      <div class="chip" style="border-radius:6px;box-shadow:var(--sh-1)"><b>Radius 6</b><small>Inputs, buttons. Shadow 1.</small></div>
+      <div class="chip" style="border-radius:10px;box-shadow:var(--sh-2)"><b>Radius 10</b><small>Cards. Shadow 2.</small></div>
+      <div class="chip" style="border-radius:16px;box-shadow:var(--sh-3)"><b>Radius 16</b><small>Modals. Shadow 3.</small></div>
+    </div>
+  </div>
+  <h3 class="sub">Layout</h3>
+  <table class="t">
+    <tr><th>Breakpoint</th><th>Width</th><th>Columns</th><th>Gutter</th></tr>
+    <tr><td>Mobile</td><td>below 640px</td><td>4</td><td>16</td></tr>
+    <tr><td>Tablet</td><td>640 to 1023px</td><td>8</td><td>24</td></tr>
+    <tr><td>Desktop</td><td>1024px and up</td><td>12 (max width 1160px)</td><td>24</td></tr>
+  </table>
+  <p class="d" style="margin-top:var(--s3)">Article text column is capped at about 68 characters (roughly 700px) for readability.</p>
+</section>
+
+<section class="ds" id="buttons">
+  <h2>5. Buttons</h2>
+  <p class="d">One primary action per screen area. Minimum height 44px for touch. Destructive actions use the danger style and always ask for confirmation.</p>
+  <div class="row">
+    <button class="btn btn-primary">Primary</button>
+    <button class="btn btn-secondary">Secondary</button>
+    <button class="btn btn-ghost">Ghost</button>
+    <button class="btn btn-danger">Request changes</button>
+    <button class="btn btn-primary" disabled>Disabled</button>
+    <button class="btn btn-primary btn-sm">Small</button>
+  </div>
+  <h3 class="sub">Where each is used</h3>
+  <table class="t">
+    <tr><th>Style</th><th>Examples</th></tr>
+    <tr><td>Primary</td><td>Subscribe, Calculate, Submit for review, Publish</td></tr>
+    <tr><td>Secondary</td><td>Save draft, Approve, Add source, Open calculator</td></tr>
+    <tr><td>Ghost</td><td>Cancel, Load more, tertiary links in dashboards</td></tr>
+    <tr><td>Danger</td><td>Request changes, Unpublish, Deactivate user</td></tr>
+  </table>
+</section>
+
+<section class="ds" id="forms">
+  <h2>6. Forms</h2>
+  <p class="d">Label above the field, hint below, error in red with text (never color alone). Inputs use 16px text so iOS does not zoom.</p>
+  <div class="grid g2">
+    <div>
+      <div class="field"><label for="a">Email address</label><input id="a" class="input" placeholder="you@example.com"><span class="hint">We send one email a week. Unsubscribe any time.</span></div>
+      <div class="field"><label for="b">Category</label><select id="b" class="select input"><option>Select a category</option><option>Diabetes</option></select></div>
+      <div class="field"><label for="c">Excerpt</label><textarea id="c" class="textarea input" placeholder="Max 160 characters"></textarea></div>
+    </div>
+    <div>
+      <div class="field"><label for="d">Password</label><input id="d" class="input err" value="abc"><span class="errmsg">Password must be at least 10 characters.</span></div>
+      <div class="field"><label>Sources <span class="badge bad">Required</span></label><div class="input" style="color:var(--text-3)">Title, publisher, URL, date</div><span class="hint">Add at least one reputable source before submitting.</span></div>
+      <button class="btn btn-primary">Subscribe</button>
+    </div>
+  </div>
+</section>
+
+<section class="ds" id="feedback">
+  <h2>7. Badges, status and alerts</h2>
+  <p class="d">Article status colors are fixed so freelancers and admin read them instantly. Each badge also carries a text label.</p>
+  <div class="row">
+    <span class="badge">Draft</span>
+    <span class="badge info">Submitted</span>
+    <span class="badge bad">Changes requested</span>
+    <span class="badge ok">Approved</span>
+    <span class="badge topic">Published</span>
+    <span class="badge warn">Re-review due</span>
+    <span class="badge">Archived</span>
+  </div>
+  <h3 class="sub">Alerts</h3>
+  <div class="grid g2">
+    <div class="alert info">Your article was submitted. Admin will review it soon.</div>
+    <div class="alert ok">Saved. Your draft is up to date.</div>
+    <div class="alert warn">This article was last reviewed over 12 months ago.</div>
+    <div class="alert bad">Add at least one source before submitting.</div>
+  </div>
+  <h3 class="sub">Medical disclaimer (required on every article and tool)</h3>
+  <div class="disclaimer">This content is for information only and is not a substitute for professional medical advice, diagnosis or treatment.</div>
+</section>
+
+<section class="ds" id="content">
+  <h2>8. Content components (public site)</h2>
+  <h3 class="sub">Article card</h3>
+  <div class="grid g3">
+    <article class="card"><div class="img">Cover image 16:9</div><div class="body"><span class="badge topic">Diabetes</span><h4>Managing type 2 diabetes with everyday Indian meals</h4><p>A short two-line excerpt that explains what the reader will learn.</p><div class="meta">By Author Name | 6 min read</div></div></article>
+    <article class="card"><div class="img">Cover image 16:9</div><div class="body"><span class="badge topic">Sleep</span><h4>Simple sleep habits that actually help</h4><p>A short two-line excerpt that explains what the reader will learn.</p><div class="meta">By Author Name | 5 min read</div></div></article>
+    <article class="card"><div class="img">Cover image 16:9</div><div class="body"><span class="badge topic">Heart Health</span><h4>Understanding your blood pressure reading</h4><p>A short two-line excerpt that explains what the reader will learn.</p><div class="meta">By Author Name | 7 min read</div></div></article>
+  </div>
+  <h3 class="sub">Article header, table of contents, sources, author</h3>
+  <div class="grid g2">
+    <div>
+      <div class="crumbs">Home / Diabetes / Article</div>
+      <h2 style="font:700 30px/1.25 var(--font-serif);margin:var(--s2) 0">Managing type 2 diabetes with everyday Indian meals</h2>
+      <div class="author"><div class="avatar">AN</div><div><b>Author Name</b><div class="meta" style="margin:0">Published 4 Oct 2026 | Updated 6 Oct 2026 | 6 min read</div></div></div>
+      <div class="disclaimer" style="margin-top:var(--s3)">Information only. Not a substitute for medical advice.</div>
+    </div>
+    <div class="grid">
+      <div class="toc"><b>In this article</b><ol><li>What is type 2 diabetes</li><li>Foods to choose</li><li>Foods to limit</li><li>When to see a doctor</li></ol></div>
+      <div class="callout"><b>When to see a doctor.</b> Callouts highlight safety guidance and use the brand tint.</div>
+    </div>
+  </div>
+  <div class="src" style="margin-top:var(--s5)"><b>Sources</b><ol><li>World Health Organization. Diabetes fact sheet. 2024.</li><li>ICMR-INDIAB study. Diabetes in India. 2023.</li></ol></div>
+  <h3 class="sub">Calculator panel</h3>
+  <div class="card"><div class="body">
+    <div class="grid g2"><div class="field"><label>Height (cm)</label><input class="input" value="170"></div><div class="field"><label>Weight (kg)</label><input class="input" value="65"></div></div>
+    <button class="btn btn-primary">Calculate</button>
+    <div class="callout" style="margin-top:var(--s4)"><b>Your BMI: 22.5</b><br>Healthy range</div>
+  </div></div>
+  <h3 class="sub">Newsletter block</h3>
+  <div class="callout row" style="justify-content:space-between"><div><b>Get weekly health tips</b><br><span style="color:var(--text-2)">One short email a week.</span></div><div class="row"><input class="input" style="width:240px" placeholder="Email address"><button class="btn btn-primary">Subscribe</button></div></div>
+</section>
+
+<section class="ds" id="nav">
+  <h2>9. Navigation</h2>
+  <div class="nav"><span class="logo">Healthnestt</span><div class="links"><span>Conditions</span><span>Wellness</span><span>Nutrition</span><span>Tools</span><span>Recipes</span></div><div class="search">Search health topics</div></div>
+  <h3 class="sub">Tabs and breadcrumbs</h3>
+  <div class="tabs"><span class="on">Overview</span><span>Symptoms</span><span>Treatment</span><span>Lifestyle</span></div>
+  <p class="crumbs" style="margin-top:var(--s3)">Home / Conditions / Diabetes</p>
+  <p class="d">On mobile the menu collapses behind a button, and a bottom bar holds Home, Topics, Tools and Search.</p>
+</section>
+
+<section class="ds" id="admin">
+  <h2>10. Dashboard components (freelancer and admin)</h2>
+  <p class="d">Same tokens, denser layout. Inter only, no serif, smaller spacing.</p>
+  <div class="grid g4">
+    <div class="stat"><small>Awaiting review</small><div class="n">5</div></div>
+    <div class="stat"><small>Changes requested</small><div class="n">3</div></div>
+    <div class="stat"><small>Published</small><div class="n">42</div></div>
+    <div class="stat"><small>Overdue re-review</small><div class="n" style="color:var(--warning-fg)">2</div></div>
+  </div>
+  <h3 class="sub">Data table</h3>
+  <table class="t">
+    <tr><th>Title</th><th>Author</th><th>Status</th><th></th></tr>
+    <tr><td>Sleep hygiene basics</td><td>Freelancer A</td><td><span class="badge info">Submitted</span></td><td><button class="btn btn-secondary btn-sm">Review</button></td></tr>
+    <tr><td>PCOS and diet</td><td>Freelancer B</td><td><span class="badge bad">Changes requested</span></td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
+    <tr><td>Understanding blood pressure</td><td>Freelancer A</td><td><span class="badge topic">Published</span></td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
+  </table>
+</section>
+
+<section class="ds" id="a11y">
+  <h2>11. Accessibility and quality rules</h2>
+  <table class="t">
+    <tr><th>Rule</th><th>Standard</th></tr>
+    <tr><td>Contrast</td><td>WCAG AA: 4.5:1 for body text, 3:1 for large text and UI borders</td></tr>
+    <tr><td>Touch targets</td><td>At least 44 by 44 px</td></tr>
+    <tr><td>Focus</td><td>Visible 3px focus ring on every interactive element, never removed</td></tr>
+    <tr><td>Color alone</td><td>Never the only signal: statuses and errors always include text</td></tr>
+    <tr><td>Images</td><td>Alt text required on every cover and inline image</td></tr>
+    <tr><td>Headings</td><td>One H1 per page, headings in order</td></tr>
+    <tr><td>Motion</td><td>Respect reduced-motion, keep transitions under 200ms</td></tr>
+    <tr><td>Language</td><td><code>lang="en"</code> now, per-page <code>lang</code> when Hindi is added</td></tr>
+    <tr><td>Performance</td><td>Images in modern formats and lazy-loaded, fonts limited to two families</td></tr>
+  </table>
+  <h3 class="sub">Content tone</h3>
+  <ul style="color:var(--text-2)">
+    <li>Plain language at about a grade 8 reading level, explain any medical term once.</li>
+    <li>Never diagnose or give dosages. Use "may", "can" and "talk to a doctor".</li>
+    <li>Every article ends with sources and shows the disclaimer near the top.</li>
+  </ul>
+</section>
+</div>
+
+<footer class="wrap" style="padding:var(--s7) var(--s4);color:var(--text-3);font-size:13px">Healthnestt design system v0.1 (Phase 0). Tokens in :root can be copied into Tailwind theme config.</footer>
+
+<script>
+(function(){
+  var b=document.getElementById('theme'),r=document.documentElement;
+  var dark=function(){var t=r.getAttribute('data-theme');return t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches};
+  b.addEventListener('click',function(){r.setAttribute('data-theme',dark()?'light':'dark')});
+})();
+</script>
+</body>
+</html>
