@@ -75,3 +75,14 @@ Next.js 16 (App Router), Tailwind v4, Prisma 6 + SQLite (dev), signed-cookie ses
 5. Replace the 3 sample articles with real, sourced content.
 
 
+
+## Deploying to Vercel (free tier)
+
+1. Create a free Postgres database at neon.tech and copy its connection string.
+2. Import the GitHub repo in Vercel and set **Root Directory** to `healthnest`.
+3. Set **Build Command** to `prisma db push && next build`.
+4. In the project's Storage tab, create a **Blob** store and connect it (adds `BLOB_READ_WRITE_TOKEN`; uploads then use Blob instead of local disk).
+5. Add env vars: `DATABASE_URL`, `SESSION_SECRET`, `SITE_URL`, and optionally `EMAIL_PROVIDER`, `EMAIL_FROM`, `RESEND_API_KEY`.
+6. After the first deploy, seed once from your machine: `DATABASE_URL=<neon url> npx prisma db seed` (then change the seeded accounts).
+
+Local development now also needs a Postgres `DATABASE_URL` (use a Neon dev branch or local Postgres); the tests need one too.

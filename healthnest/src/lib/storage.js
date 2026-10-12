@@ -2,6 +2,7 @@ import "server-only";
 import { randomBytes } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { put, head, del } from "@vercel/blob";
 
 // All upload storage goes through this module. To move to Cloudinary or S3 later,
 // replace saveImage / readImage / removeImage and keep the same return shapes.
@@ -27,12 +28,20 @@ export function sniffImage(buf) {
   return null;
 }
 
+// On Vercel the filesystem is read-only, so when BLOB_READ_WRITE_TOKEN is set files go to
+// Vercel Blob under uploads/<name>. Public URLs stay /uploads/<name> (served by the route).
+const useBlob = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+
 export const mimeFor = (name) => TYPES[name.split(".").pop()]?.mime;
 
 export async function saveImage(buf) {
   const ext = sniffImage(buf);
   if (!ext) return null;
   const filename = `${randomBytes(16).toString("hex")}.${ext}`;
+  if (useBlob()) {
+    await put(`uploads/${filename}`, buf, { access: "public", addRandomSuffix: false, contentType: TYPES[ext].mime });
+    return { filename, url: `/uploads/${filename}`, mimeType: TYPES[ext].mime, sizeBytes: buf.length };
+  }
   await fs.mkdir(UPLOAD_DIR, { recursive: true });
   await fs.writeFile(path.join(UPLOAD_DIR, filename), buf, { flag: "wx" });
   return { filename, url: `/uploads/${filename}`, mimeType: TYPES[ext].mime, sizeBytes: buf.length };
@@ -40,6 +49,15 @@ export async function saveImage(buf) {
 
 export async function readImage(filename) {
   if (!NAME_RE.test(filename)) return null;
+  if (useBlob()) {
+    try {
+      const meta = await head(`uploads/${filename}`);
+      const res = await fetch(meta.url);
+      return res.ok ? Buffer.from(await res.arrayBuffer()) : null;
+    } catch {
+      return null;
+    }
+  }
   try {
     return await fs.readFile(path.join(UPLOAD_DIR, filename));
   } catch {
@@ -49,5 +67,9 @@ export async function readImage(filename) {
 
 export async function removeImage(filename) {
   if (!NAME_RE.test(filename)) return;
+  if (useBlob()) {
+    await del(`uploads/${filename}`).catch(() => {});
+    return;
+  }
   await fs.rm(path.join(UPLOAD_DIR, filename), { force: true });
 }
