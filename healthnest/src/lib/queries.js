@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { db } from "./db";
 import { STATUS } from "./constants";
 
@@ -10,8 +11,9 @@ const cardSelect = {
   category: { select: { name: true, slug: true } },
 };
 
-export const getCategories = () =>
-  db.category.findMany({ where: { isActive: true }, orderBy: { position: "asc" } });
+// Wrapped in cache() so the header, footer and page share one query per request instead of each running their own.
+export const getCategories = cache(() =>
+  db.category.findMany({ where: { isActive: true }, orderBy: { position: "asc" } }));
 
 export const getCategoryBySlug = (slug) => db.category.findFirst({ where: { slug, isActive: true } });
 
