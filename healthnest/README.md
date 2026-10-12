@@ -86,3 +86,9 @@ Next.js 16 (App Router), Tailwind v4, Prisma 6 + SQLite (dev), signed-cookie ses
 6. After the first deploy, seed once from your machine: `DATABASE_URL=<neon url> npx prisma db seed` (then change the seeded accounts).
 
 Local development now also needs a Postgres `DATABASE_URL` (use a Neon dev branch or local Postgres); the tests need one too.
+
+### Supabase connection strings
+
+- `DATABASE_URL` (runtime): transaction pooler, port 6543, ending `?pgbouncer=true&connection_limit=1`.
+- `DIRECT_URL` (used by `prisma db push` and seeding): session pooler, port 5432.
+- Local SQLite/Postgres without a pooler: set both to the same URL.
