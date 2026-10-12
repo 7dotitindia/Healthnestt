@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { pickActive } from "@/lib/dashNav";
-import { isStaffPath } from "@/lib/paths";
+import { isAuthPath, isStaffPath } from "@/lib/paths";
 
 const ADMIN = [
   { href: "/admin", label: "Dashboard" },
@@ -52,4 +52,9 @@ describe("isStaffPath (where the public header and footer are hidden)", () => {
   it.each(["/", "/diabetes", "/articles/admin-tips", "/tools/bmi", "/administration", "/search", "", undefined])("%s is public", (p) => {
     expect(isStaffPath(p)).toBe(false);
   });
+});
+
+describe("isAuthPath", () => {
+  it.each(["/login", "/signup", "/login/", "/signup/"])("hides the site header on %s", (p) => expect(isAuthPath(p)).toBe(true));
+  it.each(["/", "/account", "/loginfo", "/signups", "/articles/login", "/search", undefined])("keeps it on %s", (p) => expect(isAuthPath(p)).toBe(false));
 });

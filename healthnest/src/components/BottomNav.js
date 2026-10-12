@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { isAuthPath, isStaffPath } from "@/lib/paths";
 import { House, LayoutGrid, Calculator, Search } from "lucide-react";
 
 const ITEMS = [
@@ -14,7 +15,7 @@ const ITEMS = [
 // Phone-only navigation bar (hidden from 768px up with CSS).
 export default function BottomNav() {
   const pathname = usePathname() || "/";
-  if (/^\/(admin|freelancer|staff)/.test(pathname)) return null;
+  if (isStaffPath(pathname) || isAuthPath(pathname)) return null;
   return (
     <nav className="bottom-nav" aria-label="Quick navigation">
       {ITEMS.map(({ href, label, Icon, match }) => (
