@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { rateLimit } from "@/lib/rateLimit";
-import { saveImage, MAX_BYTES } from "@/lib/storage";
+import { saveImage, MAX_BYTES, StorageNotConfigured } from "@/lib/storage";
 import { ROLES } from "@/lib/constants";
 
 const json = (body, status = 200) => Response.json(body, { status });
@@ -21,7 +21,7 @@ export async function POST(req) {
 
   // Reject oversize requests before reading them into memory.
   const declared = Number(req.headers.get("content-length") || 0);
-  if (declared > MAX_BYTES + 100_000) return json({ error: "Image is too large (max 5 MB)." }, 413);
+  if (declared > MAX_BYTES + 100_000) return json({ error: "Image is too large (max 4 MB)." }, 413);
 
   let file;
   try {
@@ -33,9 +33,16 @@ export async function POST(req) {
     return json({ error: "Choose an image file." }, 400);
   }
   if (file.size === 0) return json({ error: "That file is empty." }, 400);
-  if (file.size > MAX_BYTES) return json({ error: "Image is too large (max 5 MB)." }, 413);
+  if (file.size > MAX_BYTES) return json({ error: "Image is too large (max 4 MB)." }, 413);
 
-  const saved = await saveImage(Buffer.from(await file.arrayBuffer()));
+  let saved;
+  try {
+    saved = await saveImage(Buffer.from(await file.arrayBuffer()));
+  } catch (e) {
+    console.error("Image upload failed:", e);
+    if (e instanceof StorageNotConfigured) return json({ error: "Image uploads aren't set up yet. Please ask the site admin to connect image storage." }, 503);
+    return json({ error: "We couldn't save that image. Please try again in a moment." }, 502);
+  }
   if (!saved) return json({ error: "Only JPEG, PNG or WebP images are allowed." }, 415);
 
   const asset = await db.mediaAsset.create({

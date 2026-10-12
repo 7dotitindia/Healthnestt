@@ -45,7 +45,7 @@ export default function CoverUpload({ value, onChange, disabled }) {
         </div>
       )}
       {error && <p className="errmsg" role="alert" style={{ marginTop: 6 }}>{error}</p>}
-      <span className="hint">JPEG, PNG or WebP, up to 5 MB. Use an image you have the right to publish.</span>
+      <span className="hint">JPEG, PNG or WebP, up to 4 MB. Use an image you have the right to publish.</span>
     </div>
   );
 }

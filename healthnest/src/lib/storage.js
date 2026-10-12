@@ -9,7 +9,11 @@ import { put, head, del } from "@vercel/blob";
 // Files live outside /public because Next does not serve files added there after a build.
 // UPLOAD_DIR can be overridden (the automated tests write to a temp folder).
 export const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(process.cwd(), "uploads");
-export const MAX_BYTES = 5 * 1024 * 1024;
+// Vercel refuses request bodies over 4.5 MB before our code runs, so the limit sits safely below that.
+export const MAX_BYTES = 4 * 1024 * 1024;
+
+// Thrown when uploads are attempted but nowhere can store files (on Vercel the disk is read-only and no Blob store is connected).
+export class StorageNotConfigured extends Error {}
 export const NAME_RE = /^[a-f0-9]{32}\.(jpg|png|webp)$/;
 
 const TYPES = {
@@ -42,6 +46,7 @@ export async function saveImage(buf) {
     await put(`uploads/${filename}`, buf, { access: "public", addRandomSuffix: false, contentType: TYPES[ext].mime });
     return { filename, url: `/uploads/${filename}`, mimeType: TYPES[ext].mime, sizeBytes: buf.length };
   }
+  if (process.env.VERCEL) throw new StorageNotConfigured("No Blob store is connected (BLOB_READ_WRITE_TOKEN is not set).");
   await fs.mkdir(UPLOAD_DIR, { recursive: true });
   await fs.writeFile(path.join(UPLOAD_DIR, filename), buf, { flag: "wx" });
   return { filename, url: `/uploads/${filename}`, mimeType: TYPES[ext].mime, sizeBytes: buf.length };

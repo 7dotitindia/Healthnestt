@@ -29,6 +29,21 @@ function upload(bytes, name = "photo.png", headers = {}) {
 const asJson = async (res) => ({ status: res.status, body: await res.json() });
 const serve = (name) => GET(new Request(`http://localhost:3000/uploads/${name}`), { params: Promise.resolve({ name }) });
 
+describe("POST /api/upload: storage problems", () => {
+  it("says image storage is not set up (not a vague failure) when the host's disk is read-only and no Blob store is connected", async () => {
+    loginAs(writer);
+    process.env.VERCEL = "1";
+    try {
+      const res = await asJson(await upload(PNG));
+      expect(res.status).toBe(503);
+      expect(res.body.error).toMatch(/aren't set up/i);
+    } finally {
+      delete process.env.VERCEL;
+    }
+    expect(await db.mediaAsset.count()).toBe(0); // no database row for a file that was never stored
+  });
+});
+
 describe("POST /api/upload: who may upload", () => {
   it("refuses logged-out visitors and readers", async () => {
     expect((await upload(PNG)).status).toBe(401);
@@ -85,10 +100,10 @@ describe("POST /api/upload: what it accepts", () => {
     expect(filesOnDisk()).toBe(before); // nothing was written
   });
 
-  it("rejects an empty file, a missing file and a file over 5 MB", async () => {
+  it("rejects an empty file, a missing file and a file over 4 MB", async () => {
     expect((await upload(Buffer.alloc(0))).status).toBe(400);
     expect((await upload(null)).status).toBe(400);
-    const big = Buffer.concat([PNG, Buffer.alloc(5 * 1024 * 1024)]);
+    const big = Buffer.concat([PNG, Buffer.alloc(4 * 1024 * 1024)]);
     expect((await upload(big)).status).toBe(413);
     expect(await db.mediaAsset.count()).toBe(0);
   });

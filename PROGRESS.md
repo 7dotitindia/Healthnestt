@@ -83,7 +83,7 @@ Security detail: password hashing, signed httpOnly session, server-side role che
 
 ## Done: image upload (local disk)
 
-- Staff-only upload endpoint: JPEG, PNG, WebP up to 5 MB. Real file type is read from the file's first bytes, so a script renamed to .jpg is rejected. Files get random names.
+- Staff-only upload endpoint: JPEG, PNG, WebP up to 4 MB (Vercel rejects larger requests). Real file type is read from the file's first bytes, so a script renamed to .jpg is rejected. Files get random names.
 - Stored in healthnest/uploads/ (git-ignored) and served through a route that only accepts the random file pattern.
 - Editor: cover image uploader with preview, plus an Image button in the body toolbar (alt text required).
 - Article HTML may only contain images from our own uploads. External images are stripped on save.

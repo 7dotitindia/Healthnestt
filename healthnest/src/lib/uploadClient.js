@@ -1,5 +1,5 @@
 // Browser helper: uploads an image and returns { url } or throws an Error with a readable message.
-export const MAX_UPLOAD_MB = 5;
+export const MAX_UPLOAD_MB = 4;
 
 export async function uploadImage(file) {
   if (!file) throw new Error("Choose an image file.");
