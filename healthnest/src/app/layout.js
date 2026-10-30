@@ -55,6 +55,7 @@ export default function RootLayout({ children }) {
         <section data-zone-id="a1e2d06d-3c43-4940-94c0-6c9cd937d572"></section>
         <section data-zone-id="abb34dea-fda3-4118-b4d3-4701763ca667"></section>
         <section data-zone-id="c07dcc16-2cbe-484b-b02b-071593e9d90c"></section>
+        <section data-zone-id="62ecc40e-8241-43c8-aa48-4bf937b62147"></section>
         <Script src="https://tag.adsbender.com/assets/publisher_tag.js" strategy="afterInteractive" />
         <ChromeGate><SiteFooter /></ChromeGate>
         <BottomNav />
