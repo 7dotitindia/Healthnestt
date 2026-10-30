@@ -2,7 +2,7 @@ import "server-only";
 import { cache } from "react";
 import { redirect } from "next/navigation";
 import { db } from "./db";
-import { readSessionUserId } from "./session";
+import { readSessionIssuedAt, readSessionUserId } from "./session";
 import { ROLES, USER_STATUS } from "./constants";
 
 // The user is re-read from the database on every request, so deactivating
@@ -12,9 +12,14 @@ export const getCurrentUser = cache(async () => {
   if (!id) return null;
   const user = await db.user.findUnique({
     where: { id },
-    select: { id: true, name: true, email: true, role: true, status: true, slug: true },
+    select: { id: true, name: true, email: true, role: true, status: true, slug: true, emailVerifiedAt: true, sessionsValidAfter: true },
   });
   if (!user || user.status !== USER_STATUS.ACTIVE) return null;
+  // A password change signs out every device that signed in before it.
+  if (user.sessionsValidAfter) {
+    const issued = await readSessionIssuedAt();
+    if (issued == null || issued < Math.floor(user.sessionsValidAfter.getTime() / 1000)) return null;
+  }
   return user;
 });
 

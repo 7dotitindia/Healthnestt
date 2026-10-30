@@ -39,6 +39,20 @@ export async function readSessionUserId() {
   }
 }
 
+// When the current session cookie was issued (seconds since 1970), or null. Used to refuse sessions that
+// pre-date a password change.
+export async function readSessionIssuedAt() {
+  const jar = await cookies();
+  const token = jar.get(COOKIE)?.value;
+  if (!token) return null;
+  try {
+    const { payload } = await jwtVerify(token, key(), { algorithms: ["HS256"] });
+    return typeof payload.iat === "number" ? payload.iat : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function destroySession() {
   const jar = await cookies();
   jar.delete(COOKIE);

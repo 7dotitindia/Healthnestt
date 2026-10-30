@@ -24,4 +24,5 @@ vi.mock("@/lib/session", () => ({
   createSession: vi.fn(async () => {}),
   destroySession: vi.fn(async () => {}),
   readSessionUserId: vi.fn(async () => null),
+  readSessionIssuedAt: vi.fn(async () => null),
 }));
