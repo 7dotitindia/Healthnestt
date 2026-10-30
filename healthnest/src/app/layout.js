@@ -1,4 +1,5 @@
 import { Plus_Jakarta_Sans } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/constants";
 import SiteHeader from "@/components/SiteHeader";
@@ -51,6 +52,8 @@ export default function RootLayout({ children }) {
         <a className="skip" href="#main">Skip to content</a>
         <ChromeGate><SiteHeader /></ChromeGate>
         <div id="main" className="flex-1">{children}</div>
+        <section data-zone-id="a1e2d06d-3c43-4940-94c0-6c9cd937d572"></section>
+        <Script src="https://tag.adsbender.com/assets/publisher_tag.js" strategy="afterInteractive" />
         <ChromeGate><SiteFooter /></ChromeGate>
         <BottomNav />
         <ChromeGate><CookieNotice /></ChromeGate>
