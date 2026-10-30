@@ -53,6 +53,8 @@ export default function RootLayout({ children }) {
         <ChromeGate><SiteHeader /></ChromeGate>
         <div id="main" className="flex-1">{children}</div>
         <section data-zone-id="a1e2d06d-3c43-4940-94c0-6c9cd937d572"></section>
+        <section data-zone-id="abb34dea-fda3-4118-b4d3-4701763ca667"></section>
+        <section data-zone-id="c07dcc16-2cbe-484b-b02b-071593e9d90c"></section>
         <Script src="https://tag.adsbender.com/assets/publisher_tag.js" strategy="afterInteractive" />
         <ChromeGate><SiteFooter /></ChromeGate>
         <BottomNav />
