@@ -56,6 +56,13 @@ export default function RootLayout({ children }) {
         <section data-zone-id="abb34dea-fda3-4118-b4d3-4701763ca667"></section>
         <section data-zone-id="c07dcc16-2cbe-484b-b02b-071593e9d90c"></section>
         <section data-zone-id="62ecc40e-8241-43c8-aa48-4bf937b62147"></section>
+        <section data-zone-id="f3b5dd33-73f6-4a5e-807f-ba9c7b4657df"></section>
+        {/* Banner */}
+        <section data-zone-id="0a040f88-8b50-494b-b4ba-b4374267b222"></section>
+        {/* Skyscraper: a tall side rail, only on screens wide enough to leave room beside the content. */}
+        <aside className="hidden 2xl:block fixed right-2 top-24 z-10 w-[160px]">
+          <section data-zone-id="09570d41-abd8-448c-bb7a-8b75af73247a"></section>
+        </aside>
         <Script src="https://tag.adsbender.com/assets/publisher_tag.js" strategy="afterInteractive" />
         <ChromeGate><SiteFooter /></ChromeGate>
         <BottomNav />
