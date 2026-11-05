@@ -58,6 +58,9 @@ export default function RootLayout({ children }) {
         <section data-zone-id="62ecc40e-8241-43c8-aa48-4bf937b62147"></section>
         <section data-zone-id="f3b5dd33-73f6-4a5e-807f-ba9c7b4657df"></section>
         <section data-zone-id="8452ce65-9beb-4104-9772-642597524366"></section>
+        <section data-zone-id="638632e2-b98a-4937-ad1f-01361ceabdad"></section>
+        <section data-zone-id="900d416b-7a3e-4591-a0ce-7e880a2304e3"></section>
+        <section data-zone-id="07e85f78-4b2d-41e3-ba4d-762eb7ba28d0"></section>
         {/* Banner */}
         <section data-zone-id="0a040f88-8b50-494b-b4ba-b4374267b222"></section>
         {/* Skyscraper: a tall side rail, only on screens wide enough to leave room beside the content. */}
